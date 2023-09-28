@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單管理介面</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+        .event-schedule-area .section-title .title-text {
+            margin-bottom: 50px;
+        }
+
+        .event-schedule-area .tab-area .nav-tabs {
+            border-bottom: inherit;
+        }
+
+        .event-schedule-area .tab-area .nav {
+            border-bottom: inherit;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            margin-top: 80px;
+        }
+
+        .event-schedule-area .tab-area .nav-item {
+            margin-bottom: 75px;
+        }
+
+        .event-schedule-area .tab-area .nav-item .nav-link {
+            text-align: center;
+            font-size: 22px;
+            color: #333;
+            font-weight: 600;
+            border-radius: inherit;
+            border: inherit;
+            padding: 0px;
+            text-transform: capitalize !important;
+        }
+
+        .event-schedule-area .tab-area .nav-item .nav-link.active {
+            color: #4125dd;
+            background-color: transparent;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table {
+            margin-bottom: 0;
+            width: 80%;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table thead td,
+        .event-schedule-area .tab-area .tab-content .table thead th {
+            border-bottom-width: 1px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #252525;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table td,
+        .event-schedule-area .tab-area .tab-content .table th {
+            border: 1px solid #b7b7b7;
+            padding-left: 30px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th .heading,
+        .event-schedule-area .tab-area .tab-content .table tbody td .heading {
+            font-size: 16px;
+            text-transform: capitalize;
+            margin-bottom: 16px;
+            font-weight: 500;
+            color: #252525;
+            margin-bottom: 6px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th span,
+        .event-schedule-area .tab-area .tab-content .table tbody td span {
+            color: #4125dd;
+            font-size: 18px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th span.date,
+        .event-schedule-area .tab-area .tab-content .table tbody td span.date {
+            color: #656565;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th p {
+            font-size: 14px;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .member_level .section-title .title-text h2 {
+            margin: 0px 0 15px;
+        }
+
+        .member_level ul.custom-tab {
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 30px;
+        }
+
+        .member_level ul.custom-tab li {
+            margin-right: 70px;
+            position: relative;
+        }
+
+        .member_level ul.custom-tab li a {
+            color: #252525;
+            font-size: 25px;
+            line-height: 25px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 35px 0;
+            position: relative;
+        }
+
+        .member_level ul.custom-tab li a:hover:before {
+            width: 100%;
+        }
+
+        .member_level ul.custom-tab li a:before {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: "";
+            background: #4125dd;
+            width: 0;
+            height: 2px;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            transition: all 0.4s;
+        }
+
+        .member_level ul.custom-tab li a.active {
+            color: #4125dd;
+        }
+
+        .member_level .primary-btn {
+            margin-top: 40px;
+        }
+
+        .member_level .tab-content .table {
+            -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+
+        .member_level .tab-content .table thead {
+            background-color: #111213;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .member_level .tab-content .table thead tr th {
+            padding: 20px;
+            border: 0;
+        }
+
+        .member_level .tab-content .table tbody {
+            background: #f5efef;
+        }
+
+        .member_level .tab-content .table tbody tr.inner-box {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .member_level .tab-content .table tbody tr th {
+            border: 0;
+            padding: 30px 20px;
+            vertical-align: middle;
+        }
+
+        .member_level .tab-content .table tbody tr th .event-date {
+            color: #252525;
+            text-align: center;
+        }
+
+        .member_level .tab-content .table tbody tr th .event-date span {
+            font-size: 50px;
+            line-height: 50px;
+            font-weight: normal;
+        }
+
+        .member_level .tab-content .table tbody tr td {
+            padding: 30px 20px;
+            vertical-align: middle;
+        }
+
+        @media screen and (max-width: 768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                margin: 10px;
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+                font-size: 24px;
+                font-weight: 600;
+                overflow: hidden;
+                /* 溢位 跑版 最後才寫 不可能預知 */
+            }
+
+            .table-rwd tbody td::before {
+                content: attr(data-th)" : ";
+                /* attr()可以塞一個變數 */
+                display: block;
+                float: left;
+                width: 6em;
+                text-align: right;
+                padding-right: 1em;
+            }
+
+            /* em 為字數 可以更細微的去排版 */
+            .table-rwd tbody tr td span.table-col {
+                display: block;
+                float: left;
+                width: calc(100% - 50em);
+            }
+        }
+    </style>
+</head>
+
+<body style="background-image: url();">
+    <div id="app">
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">後臺訂單管理</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">首頁</a>
+                        </li>
+                        <li><a href="admin.html" class="btn btn-outline-warning mx-3">回上一頁</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="h3 fw-700 text-danger me-3" id="login_message"></span>
+                <a href="#" class="btn btn-success" id="logout_btn">登出</a>
+            </div>
+        </nav>
+        <div class="container mt-3">
+            <div class="row justify-content-center mt-3" style="margin-top: -20px;">
+                <div class="col-md-6">
+                    <select name="" id="" class="form-control" v-model="user">
+                        <option value="">----全部----</option>
+                        <option :value="item" v-for="(item, key) in username">{{ item }}</option>
+                    </select>
+                </div>
+            </div>
+            <table class="table table-striped table-bordered table-hover table-sm border-secondary table-rwd mt-3">
+                <thead class="text-bg-dark">
+                    <tr>
+                        <th>編號</th>
+                        <th>產品名稱</th>
+                        <th>產品價格</th>
+                        <th>產品數量</th>
+                        <th>購物人姓名</th>
+                        <th>信箱</th>
+                        <th>地址</th>
+                        <th>電話</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody v-for="(item, key) in filterData">
+                    <tr class="bg-light" v-if="item.c_Active == 'Y'">
+                        <td data-th="編號"><span class="table-col">{{item.ID}}</span></td>
+                        <td data-th="產品名稱"><span class="table-col">{{item.c_Name}}</span></td>
+                        <td data-th="產品價格"><span class="table-col">{{item.c_Price}}</span></td>
+                        <td data-th="產品數量"><span class="table-col">{{item.c_Num}}</span></td>
+                        <td data-th="購物人姓名"><span class="table-col">{{item.c_UserName}}</span></td>
+                        <td data-th="信箱"><span class="table-col">{{item.c_Mail}}</span></td>
+                        <td data-th="地址"><span class="table-col">{{item.c_Addr}}</span></td>
+                        <td data-th="電話"><span class="table-col">{{item.c_Phone}}</span></td>
+                        <td>
+                            <a href="#" class="btn btn-danger" @click="deleteContent(item.ID)">刪除</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <div class="container">
+                <div class="row justify-content-end mt-5">
+                    <div class="col-md-3 ms-2"
+                        style="border: 1px solid #000000; width: 500px; height: auto; margin-bottom: 20px;">
+                        <table class="table">
+                            <thead style="border-bottom: 2px solid #000000; width:500px;">
+                                <tr>
+                                    <th class="text-start" style="font-weight: bold; font-size: 32px;">會員明細{{user}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border: #000000;">
+                                    <td class="text-start " style="font-size: 24px;">總計 :</td>
+                                    <td class="text-end " style="font-size: 24px;">{{ total }} 元</td>
+                                </tr>
+                                <tr style="border: #000000;">
+                                    <td class="text-start" style="font-size: 24px;">會員等級 :</td>
+                                    <td class="text-end text-danger" style="font-size: 24px;">{{ MemberLevel(total) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="" style="font-size: 20px; border-bottom: none;">還需消費{{ upMemberLevel
+                                        }}元才能成為高級會員</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/js_bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script src="js/userdata.js"></script>
+    <script src="js/wow.min.js"></script>
+    <!-- <script src="js/regist_login.js"></script> -->
+    <script>
+        const App = {
+            data() {
+                return {
+                    orderdata: [],
+                    username: [],
+                    user: '',
+                    selectedUser: '',
+                }
+            },
+            created() {
+                const vm = this;
+                $.ajax({
+                    url: APILINKS + 'car_r_api.php',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data.data);
+                        vm.orderdata = data.data;
+
+                        // 每次更新後，使用取得使用者這支方法
+                        vm.getusername();
+
+                        // 每次更新後，使用會員等級這支方法
+                        vm.MemberLevel(vm.total);
+                    }
+                });
+
+            },
+            computed: {
+                filterData() {
+                    const vm = this;
+                    let items = [];
+
+                    if (vm.user != '') {
+                        items = vm.orderdata.filter((item, key) => {
+                            return item.c_UserName == vm.user
+                        })
+                    } else {
+                        items = vm.orderdata;
+                    }
+                    return items;
+                },
+
+                total() {
+                    const vm = this;
+                    // reduce : 用來計算總和，將所有的資料加起來(語法)
+                    // acc : 用來累加物件，可自行命名
+                    // 0： 設定 reduce 方法的初始值
+                    return vm.filterData.reduce((acc, item) => {
+                        if (item.c_Active == 'Y') {
+                            return acc + vm.gettotal(item);
+                        }
+                        return acc;
+
+                    }, 0);
+                },
+
+                // 升級為高級會員
+                upMemberLevel() {
+                    const vm = this;
+                    const requiredTotal = 20000;
+                    const currentTotal = vm.total; // 目前累積總額
+
+                    if (currentTotal < requiredTotal) {
+                        return requiredTotal - currentTotal;
+                    } else {
+                        return 0; // 已經是高級會員
+                    }
+                },
+            },
+            methods: {
+                getusername() {
+                    const vm = this;
+                    const username = new Set();
+                    vm.orderdata.forEach((item, key) => {
+                        username.add(item.c_UserName);
+                    });
+                    vm.username = Array.from(username);
+                },
+
+                gettotal(item) {
+                    if (item.c_Active == 'Y') {
+                        return item.c_Price * item.c_Num;
+                    }
+                    return 0;
+
+                },
+
+                MemberLevel(totalAmount) {
+                    if (totalAmount >= 20000) {
+                        return '高級會員';
+                    } else {
+                        return '普通會員';
+                    }
+                },
+    
+
+                getdelete(item) {
+                    const vm = this;
+                    $.ajax({
+                        url: APILINKS + 'car_d_api.php',
+                        data: { id: item.ID },
+                        dataType: 'json',
+                        success: function (data) {
+                            //使用 findIndex 方法找出 在 vm.orderdata 中的索引ID
+                            const table = vm.orderdata.findIndex(order => order.ID == item.ID);
+                            if (table !== -1) {
+                                // splice : 用來刪除。 語法(splice(start, deleteCount)), start:起始索引的位置 deleteCount:刪除的值
+                                // 使用 splice 方法 從 table 中删除一個物件
+                                vm.orderdata.splice(table, 1);
+                            }
+                        }
+                    });
+                },
+                deleteContent(id) {
+                    const vm = this;
+                    $.ajax({
+                        url: APILINKS + 'car_d_api.php',
+                        method: 'POST',
+                        data: {
+                            id: id // 发送要删除的数据的ID
+                        },
+                        success: function (response) {
+                            // 成功删除后，从Vue数据中删除被删除的项目
+                            const indexToDelete = vm.orderdata.findIndex(item => item.ID === id);
+                            if (indexToDelete !== -1) {
+                                vm.orderdata.splice(indexToDelete, 1);
+                            }
+
+                            // 成功消息
+                            console.log(response);
+                            alert("刪除成功");
+                        },
+                        error: function (error) {
+                            console.error(error); // 记录错误消息
+                        }
+                    });
+                }
+
+            }
+        }
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+
+</html>

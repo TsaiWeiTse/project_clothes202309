@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>購物車</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/car_css.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/toTop.css">
+</head>
+
+<style>
+  .text-inside-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+  }
+</style>
+
+<body>
+  <!-- navbar -->
+  <section id="navbar">
+    <div class="container-fluid">
+      <div class="row">
+        <nav>
+          <ul>
+            <li class="logo"><a href="index.html"><img src="images/index/logoko.png" style="height: 80px;" alt=""></a>
+            </li>
+            <li class="items"><a href="index.html">Home</a></li>
+            <li class="items"><a href="about.html">About</a></li>
+            <li class="items"><a href="New.html">New</a></li>
+            <li class="items"><a href="product.html">Product</a></li>
+            <li class="items"><a href="contact.html">Contact</a></li>
+            <li class="items"><a href="qalist.html">Q&A</a></li>
+
+            <!-- "使用者"是共通，"消費者"跟"管理員"分別顯示 -->
+            <!-- （初始）"使用者"按鈕 -->
+            <!--<li class="items" id="user_btn">-->
+            <!--    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">-->
+            <!--        <i class="fa-solid fa-circle-user"></i>-->
+            <!--    </a>-->
+            <!--</li>-->
+
+            <!-- （登入後）"消費者"個人訊息按鈕 -->
+            <li class="items d-none" id="message_btn">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#messageModal">
+                <i class="fa-solid fa-id-card fa-1" style="color: #ffffff;"></i>
+              </a>
+            </li>
+
+            <!-- （登入後）"消費者"購物車按鈕 -->
+            <li class="items d-none" id="car_btn">
+              <a href="car.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
+
+            <!-- （登入後）"管理員"頁面按鈕 -->
+            <li class="items d-none" id="admin_btn">
+              <a href="admin.html" target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+            </li>
+
+            <!-- （登入後）"使用者"登出按鈕 -->
+            <li class="items d-none" id="logout_btn">
+              <a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></a>
+            </li>
+
+            <!-- （螢幕縮小）"使用者"選單按鈕 -->
+            <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- mssage user modal -->
+  <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content wrapper">
+        <div class="modal-body">
+          <div class="form-box-level">
+            <form action="#">
+              <h2><i class="fa-solid fa-crown"></i></h2>
+
+              <div class="member-level-item d-flex flex-column">
+                <div class="row me-auto ms-1">
+                  <span class="icon">
+                    <i class="fa-solid fa-crown">
+                      <span class="text-light ms-2" style="font-size: 22px;">
+                        會員等級
+                      </span>
+                    </i>
+                  </span>
+                </div>
+                <div class="row ms-auto me-3">
+                  <p class="text-light me-auto" style="font-size: 16px;" id="memberLV"></p>
+                </div>
+              </div>
+
+              <div class="member-level-item d-flex flex-column">
+                <div class="row me-auto ms-1">
+                  <span class="icon">
+                    <i class="fa-solid fa-user text-dark">
+                      <span class="text-light ms-2" style="font-size: 22px;">
+                        會員姓名
+                      </span>
+                    </i>
+                  </span>
+                </div>
+                <div class="row ms-auto me-3">
+                  <p class="text-light me-auto" style="font-size: 16px;" id="dataName"></p>
+                </div>
+              </div>
+
+              <div class="member-level-item d-flex flex-column">
+                <div class="row me-auto ms-1">
+                  <span class="icon">
+                    <i class="fa-solid fa-envelope text-light">
+                      <span class="text-light ms-2" style="font-size: 22px;">
+                        會員信箱
+                      </span>
+                    </i>
+                  </span>
+                </div>
+                <div class="row ms-auto me-3">
+                  <p class="me-auto" style="font-size: 16px; color: #fff;" id="dataMail"></p>
+                </div>
+              </div>
+
+              <div class="member_update">
+                <p>
+                  <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#u_messageModal"
+                    id="message_databtn">
+                    變更使用者資訊
+                  </a>
+                  <a href="#" class="text-light u_recordModal" data-bs-toggle="modal"
+                    data-bs-target="#u_recordModal">消費紀錄</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- mssage modal -->
+  <div class="modal fade" id="u_messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content wrapper-up">
+        <div class="modal-body">
+          <div class="form-box-level-up">
+            <h2 class="text-light">會員資料更新</h2>
+            <form action="#">
+              <div class="member-level-item">
+                <span class="icon">
+                  <i class="fa-solid fa-user text-light"></i>
+                </span>
+                <input type="text" class="form-control short-input me-1" id="u_username" name="u_username" disabled>
+                <label for="u_username" class="form-label text-light">帳號</label>
+                <div>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="member-level-item">
+                <span class="icon"><i class="fa-solid fa-lock text-light"></i></span>
+                <input type="password" class="form-control short-input me-1" id="u_userpwd" name="u_userpwd">
+                <label for="u_userpwd" class="form-label text-light">密碼</label>
+                <div>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="member-level-item">
+                <span class="icon"><i class="fa-solid fa-phone text-light"></i></span>
+                <input type="text" class="form-control short-input me-1" id="u_userphone" name="u_userphone">
+                <label for="u_userphone" class="form-label text-light">電話</label>
+                <div>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="member-level-item">
+                <span class="icon"><i class="fa-solid fa-envelope text-light"></i></span>
+                <input type="email" class="form-control short-input ms-1" id="u_usermail" name="u_usermail">
+                <label for="u_usermail" class="form-label text-light">Email</label>
+                <div>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="member_update">
+                <p>
+                  <a href="#" style="color: white;" data-bs-toggle="modal" data-bs-target="#messageModal">回上一頁</a>
+                  <a href="#" style="color: white;" id="data_u_btn">確定更新</a>
+                  <a href="#" style="color: white;" data-bs-dismiss="modal">取消</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  record modal-->
+  <div class="modal fade" id="u_recordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header text-bg-primary d-flex justify-content-center">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">------ 會員消費紀錄 ------</h1>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped table-bordered table-hover">
+            <thead class="text-bg-dark">
+              <tr class="text-center">
+                <th>日期</th>
+                <th>產品名稱</th>
+                <th>購買數量</th>
+                <th>購買價格</th>
+              </tr>
+            </thead>
+            <tbody id="recode_table">
+              <tr class="text-center">
+                <td>2023-09-24</td>
+                <td>產品1</td>
+                <td>2</td>
+                <td>$50.00</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><span id="totalPriceDisplay">共累積消費 : 0 元</span></p>
+          <p>累積消費達20,000元，即可升級會高級會員，享全部商品8折優惠!!</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+            data-bs-target="#messageModal">回上一頁</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 購買清單 -->
+  <section>
+    <div class="container-fluid" style="background-image: url(images/car/car_theme01.jpg)">
+      <div class="row">
+        <div class="wrapper-car">
+          <div id="table" class="bg-white rounded">
+            <div class="table-responsive">
+              <table class="table activitites">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <h6 class="fw-500">刪除</h6>
+                    </th>
+                    <th scope="col">
+                      <h6 class="fw-500">項目</h6>
+                    </th>
+                    <th scope="col">
+                      <h6 class="fw-500">價格</h6>
+                    </th>
+                    <th scope="col">
+                      <h6 class="fw-500">數量</h6>
+                    </th>
+                    <th scope="col">
+                      <h6 class="fw-500">小計</h6>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="carList">
+                  <tr>
+                    <td>
+                      <div class="close" id="delete_btn">&times;</div>
+                    </td>
+                    <td>冬季外套</td>
+                    <td>100</td>
+                    <td>
+                      <button class="fa-solid fa-minus me-1" id="minus_btn"></button>
+                      <input type="text" class="text-center" style="width: 50px; border-radius: 5px" id="c_number"
+                        value="1" disabled />
+                      <button class="fa-solid fa-plus ms-1" id="plus_btn"></button>
+                    </td>
+                    <td id="c_total"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 購買清單 -->
+
+  <!-- 結帳 -->
+  <section>
+    <div class="container-fluid" style="background-image: url(images/car/car_theme01.jpg)">
+      <div class="row flex-column align-items-end">
+        <div class="col-md-5">
+          <h2>購物車總計：</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="mt-3">付款方式：</h4>
+                  <div>
+                    <div class="mb-3 form-check">
+                      <input type="radio" class="form-check-input" id="pay01" name="chosePay" value="貨到付款" />
+                      <label for="pay01" class="form-check-label">貨到付款</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="radio" class="form-check-input" id="pay02" name="chosePay" value="銀行刷卡" />
+                      <label for="pay02" class="form-check-label">銀行刷卡</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="radio" class="form-check-input" id="pay03" name="chosePay" value="LinePay" />
+                      <label for="pay03" class="form-check-label">LinePay</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="radio" class="form-check-input" id="pay04" name="chosePay" value="台灣行動支付" />
+                      <label for="pay04" class="form-check-label">台灣行動支付</label>
+                    </div>
+                    <div class="form-text" id="err_chosePay">
+                      ※請選擇一種付款方式
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>總計</th>
+                <td data-title="總計">
+                  <span id="all_total">NT$260</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row flex-column" id="push_orderList">
+            <div class="col-md-6 align-self-center mt-3 mb-3">
+              <a href="#" class="btn btn-primary" id="pushcar_btn">前往結帳</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 結帳 -->
+  <!-- footer -->
+  <section class="bg-black py-5">
+    <div class="container">
+      <div class="text-center">
+        <img src="images/contact/logoko.png" style="height: 180px;" alt="Logo">
+        <div class="row mt-4">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="row">
+              <!-- 在 md 和 sm 屏幕上垂直排列 -->
+              <div class="col-md-4 mb-4">
+                <div class="position-relative">
+                  <a href="https://zh-tw.facebook.com/">
+                    <img src="images/index/footer01.jpg" style="width: 100%;" alt="Facebook">
+                    <div class="text-inside-image">Facebook</div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="position-relative">
+                  <a href="https://www.instagram.com/">
+                    <img src="images/index/footer02.jpg" style="width: 100%;" alt="Instagram">
+                    <div class="text-inside-image">Instagram</div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="position-relative">
+                  <a href="https://www.youtube.com/">
+                    <img src="images/index/footer03.jpg" style="width: 100%;" alt="YouTube">
+                    <div class="text-inside-image">YouTube</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h5 class="text-light text-center">Copyright © 2023 台中思購衣網 by Shopping Clothes</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="back-top hide" title="回頂部"></div>
+  </section>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery-3.7.0.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="js/index_banner.js"></script>
+  <script src="js/publiclink.js"></script>
+  <script src="js/regist_login.js"></script>
+  <script src="js/uid01.js"></script>
+  <script src="js/userdata.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $(".btn").click(function () {
+        $(".items").toggleClass("show");
+        $("ul li").toggleClass("hide");
+      });
+    });
+  </script>
+
+  <script>
+    var total; // 小計
+    var allTotal = 0; //最終總和
+
+    var flag_total = false; // （監聽）最終總價格
+    var flag_chosePay = false; // （監聽）付款選項
+
+    $(function () {
+      // 讀取car資料庫檔案
+      $.ajax({
+        type: "GET",
+        url: APILINKS + "car_r_api.php",
+        dataType: "json",
+        async: false,
+        success: showdata_table,
+        error: function () {
+          alert("error-" + APILINKS + "car_r_api.php");
+        },
+      });
+
+      // （即時監聽）刪除單一筆資料
+      $("#carList #delete_btn").click(function () {
+        if (confirm("確認刪除: " + $(this).data("name") + "?")) {
+          $.ajax({
+            type: "POST",
+            url: APILINKS + "car_d_api.php",
+            data: { id: $(this).data("id") },
+            dataType: "json",
+            async: false,
+            success: showdata_delete,
+            error: function () {
+              alert("error-" + APILINKS + "car_d_api.php");
+            },
+          });
+        }
+      });
+
+      // 送出按鈕及其選項監聽
+      $("#pushcar_btn").click(function () {
+        var chosePay = ""; // 儲存選到的付款選項（值）
+
+        $.each($("input[name='chosePay']:checked"), function () {
+          chosePay = $(this).val();
+        });
+
+        // 總價不得為0
+        if (total > 0) {
+          flag_total = true;
+        } else {
+          flag_total = false;
+        }
+
+        // chosePay必選
+        if (chosePay.length > 0) {
+          flag_chosePay = true;
+          $("#err_chosePay").addClass("d-none");
+        } else {
+          flag_chosePay = false;
+        }
+
+        if (flag_total) {
+          if (flag_chosePay) {
+            $.ajax({
+              type: "POST",
+              url: APILINKS + "car_u_api.php",
+              dataType: "json",
+              data: {
+                p_c_username: Username,
+                p_c_total: allTotal,
+
+              },
+              success: showdata,
+              error: function () {
+                alert("錯誤-" + APILINKS + "car_u_api.php");
+              },
+            });
+          } else {
+            alert("請先勾選付款方式");
+            location.href = "car.html";
+          }
+        } else {
+          alert("請先加入購物車！");
+          location.href = "car.html";
+        }
+      });
+    }); // 主程式結尾
+
+    function showdata_table(data) {
+      console.log(level);
+      $("#carList").empty();
+      if (data.state) {
+        data.data.forEach(function (item) {
+          if (item.c_UserName == Username && item.c_Active == "N") {
+            total = item.c_Num * item.c_Price; // 小計每一筆
+
+            var strHtml =
+              '<tr><td><div class="close" data-id="' +
+              item.ID +
+              '" data-name="' +
+              item.c_Name +
+              '" id="delete_btn">&times;</div></td><td>' +
+              item.c_Name +
+              "</td><td>$ " +
+              item.c_Price +
+              "</td><td>" +
+              item.c_Num +
+              " 件</td><td>$ " +
+              total +
+              "</td></tr>";
+
+            $("#carList").append(strHtml);
+
+            allTotal += total; //加總
+          }
+        });
+        $("#all_total").text("$ " + allTotal); //輸出總和結果
+      }
+    }
+
+    function showdata_delete(data) {
+      if (data.state) {
+        alert(data.message);
+        location.href = "car.html";
+      } else {
+        alert(data.message);
+      }
+    }
+
+
+    function showdata(data) {
+      console.log(level);
+      console.log(data.data);
+      if (level == 'A') {
+        alert("結帳成功");
+        location.href = "index.html";
+      } else if (data.data > 20000 && level == 'B') {
+        $.ajax({
+          url: APILINKS + "level_u_api.php",
+          type: "POST",
+          dataType: "json",
+          data: {
+            p_c_username: Username,
+            level: "A",
+          },
+          success: function (data) {
+            alert("恭喜您" + data.message + ": 高級");
+            setCookie("level", 'A');
+            location.href = "index.html";
+          },
+          error: function () {
+            alert("error-api/level_u_api.php");
+          }
+        });
+      } else {
+        alert("結帳成功");
+        location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+
+</html>

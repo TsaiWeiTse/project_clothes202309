@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思購衣Admin</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <style>
+        .box {
+            width: 420px;
+            height: 420px;
+            padding: 15px;
+            margin: 15px;
+            margin-top: 100px;
+            margin-bottom: 110px;
+            border: 5px solid red;
+
+
+        }
+
+        .box h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 115%;
+            font-weight: 900;
+
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .text-inside-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px;
+            font-size: 14px;
+            width: 100%;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <section id="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <li class="logo"><a href="index.html"><img src="images/index/logoko.png" style="height: 80px;"
+                                    alt=""></a></li>
+                        <li class="items d-none" id="admin_btn">
+                            <a href="admin.html" target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+                        </li>
+                        <li class="items userMessage d-flex justify-content-between">
+                            <h2 class="text-white mb-0 d-none" id="login_message">歡迎xxx回來</h2>
+                            <a href="#" class="btn btn-success ms-3 mb-0 d-none" id="logout_btn">登出</a>
+                        </li>
+
+                        <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container-fluid " style="background-image: url(images/admin/images_admin04.jpg); ">
+            <div class="row">
+                <div class="col-md-4 ">
+                    <a href="conrtol_mem_panel.html" class="text-decoration-none d-flex  justify-content-center">
+                        <div class="box"
+                            style="background-image: url(images/admin/images_admin01.jpg); background-size: cover; font-style: italic;">
+                            <h1 class="text-white">管理會員</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="control_pro_panel.html" class="text-decoration-none d-flex justify-content-center">
+                        <div class="box"
+                            style="background-image: url(images/admin/images_admin02.jpg); background-size: cover; font-style: italic;">
+                            <h1 class="text-dark">管理產品</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="conrtol_ord_panel.html" class="text-decoration-none d-flex justify-content-center">
+                        <div class="box"
+                            style="background-image: url(images/admin/images_admin03.jpg); background-size: cover; font-style: italic;">
+                            <h1 class="text-white">管理訂單</h1>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-secondary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="images/admin/logoko.png" alt="">
+                </div>
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <h1 class="text-white text-center"><strong>Copyright © 2023 台中思購衣網 by Shopping Clothes</strong></h1>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <button id="mail_btn" class="btn btn-primary position-relative">
+                        <i class="fa-solid fa-envelope  fa-8x"></i>
+                        <span class="badge text-bg-danger position-absolute translate-middle-y rounded-circle d-none"
+                            id="mail_icon_use" style="font-size: larger;">!</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="js/index_banner.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script src="js/userdata.js"></script>
+    <script src="js/toTop.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn').click(function () {
+                $('.items').toggleClass("show");
+                $('ul li').toggleClass("hide");
+            });
+        });
+        $(function () {
+            //確認uid是否存在，若存在傳至後端check_uid_api.php確認是否合法
+            if (getCookie("uid01") != "") {
+                //uid存在，傳至後端check_uid_api.php確認是否合法
+                $.ajax({
+                    type: "POST",
+                    url: APILINKS + "check_uid_api.php",
+                    dataType: "json",
+                    data: { uid01: getCookie("uid01") },
+                    async: false,
+                    success: showdata_check_uid,
+                    error: function () {
+                        alert("error-" + APILINKS + "check_uid_api.php");
+                    },
+                });
+            } else {
+
+                alert("請先登入會員 ! !");
+                location.href = "index.html";
+            }
+        });
+        // 監聽要放在這裡面
+        function showdata_check_uid(data) {
+            if (data.data[0].userAdmin == "1") {
+                $("#admin_btn").removeClass("d-none");
+                //登入按鈕隱藏
+                $("#user_btn").addClass("d-none");
+                //重啟瀏覽器後顯示歡迎詞
+                $("#login_message").removeClass("d-none");
+                $("#login_message").text("管理員：" + data.data[0].userName);
+                $("#mail_btn").click(function () {
+                    location.href = "control_form_panel.html";
+                })
+                $(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: APILINKS + "form_r_api.php",
+                        dataType: "json",
+                        async: false,
+                        success: showdata_mail,
+                        error: function () {
+                            alert("串接資料錯誤-form_r_api.php");
+                        }
+                    });
+                });
+
+                function showdata_mail(data) {
+                    console.log(data.data[0]);
+                    if (data.state) {
+                        var activeCount = 0; // 用於計算f_Active為N的數量
+                        for (var i = 0; i < data.data.length; i++) {
+                            if (data.data[i].f_Active == 'N') {
+                                activeCount++;
+                            }
+                        }
+
+                        if (activeCount > 0) {
+                            // 如果f_Active為N的數量大於0，顯示<sapn>紅色驚嘆號
+                            $("#mail_icon_use").removeClass("d-none");
+                            $("#mail_icon_use").addClass("text-bg-danger");
+                        } else {
+                            // 隱藏<sapn>標籤
+                            $("#mail_icon_use").removeClass("text-bg-danger");
+                            $("#mail_icon_use").addClass("d-none");
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            } else {
+                // uid 驗證失敗
+                alert("你不是管理員 ! !");
+                location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+
+</html>

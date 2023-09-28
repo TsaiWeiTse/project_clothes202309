@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Navbar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    
+</head>
+
+<body>
+    <!-- navbar -->
+    <section id="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <li class="logo"><img src="images/index/logoko.png" style="height: 80px;" alt=""></li>
+                        <li class="items"><a href="index.html">Home</a></li>
+                        <li class="items"><a href="about.html">About</a></li>
+                        <li class="items"><a href="New.html">New</a></li>
+                        <li class="items"><a href="product.html">Product</a></li>
+                        <li class="items"><a href="contact.html">Contact</a></li>
+                        <li class="items"><a href="qalist.html">Q&A</a></li>
+                        <li class="items" id="user_btn">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </a>
+                        </li>
+                        <li class="items d-none" id="car_btn">
+                            <a href="car.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+                        <li class="items d-none" id="admin_btn">
+                            <a href="admin.html"target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+                        </li>
+                        <li class="items userMessage d-flex justify-content-between">
+                            <h2 class="text-white mb-0 d-none" id="login_message">歡迎xxx回來</h2>
+                            <a href="#" class="btn btn-success ms-3 mb-0 d-none" id="logout_btn">登出</a>
+                        </li>
+
+                        <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+    <!-- LoginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control" id="login_username" placeholder="請輸入帳號">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" id="login_password" placeholder="請輸入密碼">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號，註冊去</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" id="login_btn">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registerModal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row modal_line">
+                        <div class="col-6">
+                            <h3>會員註冊規定</h3>
+                            <p>1. 提供真實資料，您必須提供真實、完整、最新的個人資料，包括姓名、聯絡方式、地址等信息。</p>
+                            <p>2. 請確保帳號及密碼的安全性，不要分享給他人。如果您發現帳號被盜用或不當使用，請立即通知我們。</p>
+                            <p>3. 請不要濫用購衣網的系統，包括大量生成虛假帳號、惡意操縱價格、洗錢等不當行為。</p>
+                            <p>4. 在使用購衣網時，請遵守您所在地區和國家的法律法規。不要從事非法活動，包括侵犯知識產權、詐騙或其他違法行為。</p>
+                            <hr>
+                            <p>我們承諾嚴格保護會員的個人資料和隱私。這些會員資訊將僅用於確認您的身份，確保您的訂單準確發送以及聯絡您，不會被用於其他商業用途。</p>
+                            <div class="form-check">
+                                <input type="checkbox" name="" id="" class="form-check-input">
+                                <label for="" class="form-check-label">遵守</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">帳號</label>
+                                <input type="text" id="username_modal" name="username_modal" class="form-control"
+                                    placeholder="請輸入帳號5-8!">
+                                <div class="valid-feedback" id="valid_msg">帳號輸入正確</div>
+                                <div class="invalid-feedback" id="invalid_msg">帳號輸入錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">密碼</label>
+                                <input type="password" id="password_modal" name="password_modal" class="form-control"
+                                    placeholder="請輸入密碼5-8!">
+                                <div class="valid-feedback">密碼輸入正確</div>
+                                <div class="invalid-feedback">密碼輸入錯誤</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已有帳號，登入去</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-warning" id="reg_btn">確認註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide 幻燈片 -->
+    <section id="s20">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active bg-cover"
+                    style="height: 768px; background-image: url(images/navbar/show01.jpg);background-position: center center;">
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="height: 768px; background-image: url(images/navbar/show02.jpg);background-position: center center;">
+
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="height: 768px; background-image: url(images/navbar/show03.jpg);background-position: bottom center;">
+                </div>
+
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <!-- footer -->
+    <section class=" bg-black">
+        <div class="container-fluid">
+            <div class="text-center d-block">
+                <img src="images/navbar/logoko.png" style="height: 180px; " alt="">
+                <div class="row mt-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <img src="images/navbar/footer01.jpg" style="width: 220px;" alt="">
+                        <img src="images/navbar/footer02.jpg" style="width: 220px;" alt="">
+                        <img src="images/navbar/footer03.jpg" style="width: 220px;" alt="">
+
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5><strong class="text-light">Copyright © 2023 台中思購衣網 by Shopping Clothes</strong></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="js/index_banner.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('.btn').click(function () {
+                $('.items').toggleClass("show");
+                $('ul li').toggleClass("hide");
+            });
+        });
+    </script>
+</body>
+
+</html>

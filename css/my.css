@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+
+
+:root {
+    --c01: #D1DDD8;
+    --c02: #85b8cb;
+    --c03: #1D6A96;
+    --c04: #283B42;
+    --c05: #e29e93;
+    --c06: #ebe5d9;
+    --c07: #499360;
+    --c08: #ca884b;
+    --c09: #d44950;
+    --c10: #A9DFED;
+    --c11: #EBD6E8;
+    --c12: #84C0E9;
+    --c13: #37419A;
+}
+
+.demo {
+    border: 5px solid var(--c03);
+    margin: 15px;
+    padding: 15px;
+}
+
+.fw-100 {
+    font-weight: 100;
+}
+
+.fw-300 {
+    font-weight: 300;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-900 {
+    font-weight: 900;
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.box01 {
+    width: 100px;
+    height: 100px;
+    padding: 15px;
+    margin: 15px;
+    border: 2px solid var(--c03);
+}
+
+.box02 {
+    height: 120px;
+    border: 2px solid var(--c03);
+    background-color: var(--c07);
+    margin-top: 15px;
+}
+
+.bg-cover {
+    background-position: center center;
+    background-size: cover;
+}
+
+.demo {
+    border: 2px solid var(--c07);
+    padding: 15px;
+    margin: 15px;
+}

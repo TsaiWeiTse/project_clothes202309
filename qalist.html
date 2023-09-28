@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思購衣Q&A</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/timeline.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/newlist.css">
+    <link rel="stylesheet" href="css/img_shake.css">
+    <link rel="stylesheet" href="css/toTop.css">
+
+</head>
+
+<style>
+    .position-relative {
+        position: relative;
+    }
+
+    .text-inside-image {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 5px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .rotate-image {
+        width: 45px;
+        /* 設定圖片的寬度 */
+        height: 45px;
+        /* 設定圖片的高度 */
+        transition: transform 1s;
+        /* 添加過渡效果，使旋轉平滑 */
+        float: right;
+        /* 使用float属性将图像放在标题的最右侧 */
+        margin-left: 10px;
+        /* 可选：添加一些左边距以分隔标题和图像 */
+
+    }
+</style>
+</style>
+
+<body>
+    <!-- navbar -->
+    <section id="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <li class="logo"><a href="index.html"><img src="images/index/logoko.png" style="height: 80px;"
+                                    alt=""></a></li>
+                        <li class="items"><a href="index.html">Home</a></li>
+                        <li class="items"><a href="about.html">About</a></li>
+                        <li class="items"><a href="New.html">New</a></li>
+                        <li class="items"><a href="product.html">Product</a></li>
+                        <li class="items"><a href="contact.html">Contact</a></li>
+                        <li class="items"><a href="qalist.html" style="color: #33ffff">Q&A</a></li>
+
+                        <!-- "使用者"是共通，"消費者"跟"管理員"分別顯示 -->
+                        <!-- （初始）"使用者"按鈕 -->
+                        <!--<li class="items" id="user_btn">-->
+                        <!--    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">-->
+                        <!--        <i class="fa-solid fa-circle-user"></i>-->
+                        <!--    </a>-->
+                        <!--</li>-->
+
+                        <!-- （登入後）"消費者"個人訊息按鈕 -->
+                        <li class="items d-none" id="message_btn">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                <i class="fa-solid fa-id-card fa-1" style="color: #ffffff;"></i>
+                            </a>
+                        </li>
+
+                        <!-- （登入後）"消費者"購物車按鈕 -->
+                        <li class="items d-none" id="car_btn">
+                            <a href="car.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+
+                        <!-- （登入後）"管理員"頁面按鈕 -->
+                        <li class="items d-none" id="admin_btn">
+                            <a href="admin.html" target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+                        </li>
+
+                        <!-- （登入後）"使用者"登出按鈕 -->
+                        <li class="items d-none" id="logout_btn">
+                            <a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></a>
+                        </li>
+
+                        <!-- （螢幕縮小）"使用者"選單按鈕 -->
+                        <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!--loginModal-->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control" placeholder="請輸入帳號!" id="login_username"
+                            name="login_username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" placeholder="請輸入密碼!" id="login_password"
+                            name="login_password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號, 請註冊</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        取消</button>
+                    <button type="button" class="btn btn-success" id="login_btn">
+                        確認登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--registerModal-->
+    <!--register-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row registerModal_Line">
+                        <div class="col-6 content">
+                            <h3>會員註冊規定</h3>
+                            <p>1. 提供真實資料，您必須提供真實、完整、最新的個人資料，包括姓名、聯絡方式、地址等信息。</p>
+                            <p>2. 請確保帳號及密碼的安全性，不要分享給他人。如果您發現帳號被盜用或不當使用，請立即通知我們。</p>
+                            <p>3. 請不要濫用購衣網的系統，包括大量生成虛假帳號、惡意操縱價格、洗錢等不當行為。</p>
+                            <p>4. 在使用購衣網時，請遵守您所在地區和國家的法律法規。不要從事非法活動，包括侵犯知識產權、詐騙或其他違法行為。</p>
+                            <hr>
+                            <p>我們承諾嚴格保護會員的個人資料和隱私。這些會員資訊將僅用於確認您的身份，確保您的訂單準確發送以及聯絡您，不會被用於其他商業用途。</p>
+                            <div class="form-check">
+                                <input type="checkbox" id="recheckbox" name="recheckbox"
+                                    class="form-check-input is-invalid">
+                                <label for="recheckbox" class="form-check-label text-primary">已閱讀並遵守</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">請勾選！</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">帳號</label>
+                                <input type="text" id="username" name="username" class="form-control"
+                                    placeholder="請輸入帳號 6~16字">
+                                <div class="valid-feedback" id="valid_message">帳號輸入格式正確</div>
+                                <div class="invalid-feedback" id="invalid_message">帳號輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userpwd" class="form-label">密碼</label>
+                                <input type="password" id="userpwd" name="userpwd" class="form-control"
+                                    placeholder="請輸入密碼 6~16字">
+                                <div class="valid-feedback">密碼輸入格式正確</div>
+                                <div class="invalid-feedback">密碼輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repassword" class="form-label">確認密碼</label>
+                                <input type="password" id="repassword" name="repassword" class="form-control"
+                                    placeholder="重新輸入密碼">
+                                <div class="valid-feedback">密碼輸入正確</div>
+                                <div class="invalid-feedback">密碼輸入錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userphone" class="form-label">電話</label>
+                                <input type="text" id="userphone" name="userphone" class="form-control"
+                                    placeholder="請輸入電話號碼 最多16碼">
+                                <div class="valid-feedback">電話輸入格式正確</div>
+                                <div class="invalid-feedback">電話輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="useraddr" class="form-label">地址</label>
+                                <input type="text" id="useraddr" name="useraddr" class="form-control"
+                                    placeholder="請輸入地址 最多64字">
+                                <div class="valid-feedback">地址輸入格式正確</div>
+                                <div class="invalid-feedback">地址輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="usermail" class="form-label">Email</label>
+                                <input type="text" id="usermail" name="usermail" class="form-control"
+                                    placeholder="請輸入Email 最多32字">
+                                <div class="valid-feedback">Email輸入格式正確</div>
+                                <div class="invalid-feedback">Email輸入格式錯誤</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已經有帳號，登入去！</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="reg_btn" name="reg_btn" class="btn btn-primary">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <section id="toast_windows" class="d-none">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-center">
+                    <img src="images/index/logoko.png" style="height: 80px;width: 200px;" class="bg-dark rounded me-2"
+                        alt="">
+                    <strong class="me-auto">Welcome back</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                        data-bs-delay='{"show":0,"hide":6000}'></button>
+                </div>
+                <div class="toast-body">
+                    <h4 class="text-danger" id="toast_msg"></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- mssage user modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content wrapper">
+                <div class="modal-body">
+                    <div class="form-box-level">
+                        <form action="#">
+                            <h2><i class="fa-solid fa-crown"></i></h2>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-crown">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員等級
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="memberLV"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-user text-dark">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員姓名
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="dataName"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-envelope text-light">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員信箱
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="me-auto" style="font-size: 16px; color: #fff;" id="dataMail"></p>
+                                </div>
+                            </div>
+
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" class="text-light" data-bs-toggle="modal"
+                                        data-bs-target="#u_messageModal" id="message_databtn">
+                                        變更使用者資訊
+                                    </a>
+                                    <a href="#" class="text-light u_recordModal" data-bs-toggle="modal"
+                                        data-bs-target="#u_recordModal">消費紀錄</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- mssage modal -->
+    <div class="modal fade" id="u_messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content wrapper-up">
+                <div class="modal-body">
+                    <div class="form-box-level-up">
+                        <h2 class="text-light">會員資料更新</h2>
+                        <form action="#">
+                            <div class="member-level-item">
+                                <span class="icon">
+                                    <i class="fa-solid fa-user text-light"></i>
+                                </span>
+                                <input type="text" class="form-control short-input me-1" id="u_username"
+                                    name="u_username" disabled>
+                                <label for="u_username" class="form-label text-light">帳號</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-lock text-light"></i></span>
+                                <input type="password" class="form-control short-input me-1" id="u_userpwd"
+                                    name="u_userpwd">
+                                <label for="u_userpwd" class="form-label text-light">密碼</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-phone text-light"></i></span>
+                                <input type="text" class="form-control short-input me-1" id="u_userphone"
+                                    name="u_userphone">
+                                <label for="u_userphone" class="form-label text-light">電話</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-envelope text-light"></i></span>
+                                <input type="email" class="form-control short-input ms-1" id="u_usermail"
+                                    name="u_usermail">
+                                <label for="u_usermail" class="form-label text-light">Email</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" style="color: white;" data-bs-toggle="modal"
+                                        data-bs-target="#messageModal">回上一頁</a>
+                                    <a href="#" style="color: white;" id="data_u_btn">確定更新</a>
+                                    <a href="#" style="color: white;" data-bs-dismiss="modal">取消</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  record modal-->
+    <div class="modal fade" id="u_recordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-bg-primary d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">------ 會員消費紀錄 ------</h1>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="text-bg-dark">
+                            <tr class="text-center">
+                                <th>日期</th>
+                                <th>產品名稱</th>
+                                <th>購買數量</th>
+                                <th>購買價格</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recode_table">
+                            <tr class="text-center">
+                                <td>2023-09-24</td>
+                                <td>產品1</td>
+                                <td>2</td>
+                                <td>$50.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><span id="totalPriceDisplay">共累積消費 : 0 元</span></p>
+                    <p>累積消費達20,000元，即可升級會高級會員，享全部商品8折優惠!!</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">回上一頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 問題解答 -->
+    <section id="s20">
+        <div class="container-fluid">
+            <div class="row"
+                style="background-image: url(images/qa/qa_theme01.jpg);background-position: bottom center; background-attachment: fixed;">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="text-center">
+                        <h1 class="text-light" style="background-image: url(images/qa/qa_theme02.png);background-size: contain;
+                        margin: 10px 0px;
+                        padding: 12px;
+                        background-position: center center;
+                        background-repeat: no-repeat;">注意事項與保養問題 Q & A</h1>
+                        <br>
+                        <br>
+                    </div>
+                    <h3 onclick="showAnswer('answer1')" id="rotate-button1" style="color: #861212;" class="fw-900">Q :
+                        配送方式與運費計算?
+                        <img src="images/qa/qa_theme03.png" alt="" class="rotate-image" id="rotate-button1">
+                    </h3>
+                    <hr>
+                    <p id="answer1" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        1. 全站單筆訂單滿$1500元以上( 單筆購買2組以上 ) 免運
+                        <br>
+                        2. 超商運費$60，郵政到府運費$80
+                        <br>
+                        3. 以 中華郵政 / 7-11 / 全家 / 超商寄送商品
+                        <br><br>
+                    </p>
+                    <h3 onclick="showAnswer('answer2')" id="rotate-button2" style="color: #861212;" class="fw-900">Q :
+                        付款方式與收貨時間?<img src="images/qa/qa_theme03.png" alt="" class="rotate-image" id="rotate-button2">
+                    </h3>
+                    <hr>
+                    <p id="answer2" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        付款方式只有以下四種
+                        <br>
+                        ※『信用卡付款』服務<br>
+                        ※『超商取貨付款』服務<br>
+                        ※『ATM轉帳』服務<br>
+                        ※『WebATM網路轉帳』服務<br>
+                        <br>
+                        訂單成立後將立即處理您的訂單<br>
+                        ※『郵政將於1-3個工作日』 / 『超商3-5個工作日』<br>
+                        ( 不含週六日及國定例假日 ) 收到訂購之商品<br>
+                        ※以 中華郵政 / 7-11 / 全家 超商寄送商品，<br>
+                        配送速度依當日實際配送狀況而定
+                        <br><br>
+                    </p>
+                    <h3 onclick="showAnswer('answer3')" id="rotate-button3" style="color: #861212;" class="fw-900">Q :
+                        保固說明?<img src="images/qa/qa_theme03.png" alt="" class="rotate-image" id="rotate-button3"></h3>
+                    <hr>
+                    <p id="answer3" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        本站所有商品皆提供自收件日起3個月免費保固服務
+                        <br>
+                        免費保固不涵蓋以下:<br>
+                        ＊ 商品無購買證明、訂單編號與實物不符合者<br>
+                        ＊ 在非官網或官方授權通路購買之商品<br>
+                        ＊ 使用後外觀正常磨損與老化<br>
+                        ＊ 未依照使用建議，不當使用造成之任何損壞<br>
+                        ＊ 請先詳讀網站下方中間 “ 出貨與退換貨流程 <br>“ ，如有不符合者，怒不接受退貨喔
+                        <br><br>
+                    </p>
+                    <h3 onclick="showAnswer('answer4')" id="rotate-button4" style="color: #861212;" class="fw-900">Q :
+                        如何選擇合適的尺寸？<img src="images/qa/qa_theme03.png" alt="" class="rotate-image" id="rotate-button4">
+                    </h3>
+                    <hr>
+                    <p id="answer4" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        1. 查看商品的尺寸指南，通常在產品頁面上。<br>
+                        2. 測量自己的身體尺寸，以確保選擇合適的尺寸。<br>
+                        3. 了解該品牌的尺寸標準，不同品牌可能有不同的尺寸。
+                        <br><br>
+                    </p>
+                    <h3 onclick="showAnswer('answer5')" id="rotate-button5" style="color: #861212;" class="fw-900">Q :
+                        如何返還或退換購物網站上的商品？<img src="images/qa/qa_theme03.png" alt="" class="rotate-image"
+                            id="rotate-button5"></h3>
+                    <hr>
+                    <p id="answer5" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        1. 查看購物網站的退換貨政策，了解他們的規定。<br>
+                        2. 保留商品的收據和原包裝。<br>
+                        3. 聯繫客戶服務，並按照他們的指示進行退換貨。
+                        <br><br>
+                    </p>
+                    <h3 onclick="showAnswer('answer6')" id="rotate-button6" style="color: #861212;" class="fw-900">Q :
+                        如何查詢訂單的狀態？<img src="images/qa/qa_theme03.png" alt="" class="rotate-image" id="rotate-button6">
+                    </h3>
+                    <hr>
+                    <p id="answer6" style="display:none;" class="fw-700" style="padding-left: 40px;">
+                        A:
+                        <br>
+                        1. 登錄你的購物網站帳戶，查看訂單歷史。<br>
+                        2. 通過購物網站提供的訂單追蹤功能來查詢訂單的狀態。<br>
+                        3. 聯繫客戶服務，如果需要進一步的幫助。<br>
+                        <br><br>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <section class=" bg-black">
+        <div class="container-fluid">
+            <div class="text-center d-block">
+                <img src="images/contact/logoko.png" style="height: 180px; " alt="">
+                <div class="row mt-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between">
+                            <div class="position-relative">
+                                <a href="https://zh-tw.facebook.com/">
+                                    <img src="images/index/footer01.jpg" style="width: 220px;" alt="">
+                                    <div class="text-inside-image">Facebook</div>
+                                </a>
+                            </div>
+                            <div class="position-relative">
+                                <a href="https://www.instagram.com/">
+                                    <img src="images/index/footer02.jpg" style="width: 220px;" alt="">
+                                    <div class="text-inside-image">Instagram</div>
+                                </a>
+                            </div>
+                            <div class="position-relative">
+                                <a href="https://www.youtube.com/">
+                                    <img src="images/index/footer03.jpg" style="width: 220px;" alt="">
+                                    <div class="text-inside-image">YouTube</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5><strong class="text-light">Copyright © 2023 台中思購衣網 by Shopping Clothes</strong></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back-top hide" title="回頂部"></div>
+    </section>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script src="js/userdata.js"></script>
+    <script src="js/toTop.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn').click(function () {
+                $('.items').toggleClass("show");
+                $('ul li').toggleClass("hide");
+            });
+        });
+        // JavaScript函数，用於上面顯示點Q出現A的動畫
+        function showAnswer(id) {
+            var answer = document.getElementById(id);
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+        // JavaScript函數，用於點擊圖片時旋轉
+        const question1 = document.getElementById('rotate-button1');
+        const answer1 = document.getElementById('answer1');
+        const question2 = document.getElementById('rotate-button2');
+        const answer2 = document.getElementById('answer2');
+        const question3 = document.getElementById('rotate-button3');
+        const answer3 = document.getElementById('answer3');
+        const question4 = document.getElementById('rotate-button4');
+        const answer4 = document.getElementById('answer4');
+        const question5 = document.getElementById('rotate-button5');
+        const answer5 = document.getElementById('answer5');
+        const question6 = document.getElementById('rotate-button6');
+        const answer6 = document.getElementById('answer6');
+        const question7 = document.getElementById('rotate-button7');
+        const answer7 = document.getElementById('answer7');
+
+        // 初始化旋转状态
+        let rotated1 = false;
+        let rotated2 = false;
+        let rotated3 = false;
+        let rotated4 = false;
+        let rotated5 = false;
+        let rotated6 = false;
+        let rotated7 = false;
+
+        // 添加点击事件处理程序
+        question1.addEventListener('click', () => {
+            toggleQA(question1, answer1, rotated1);
+            rotated1 = !rotated1;
+        });
+
+        question2.addEventListener('click', () => {
+            toggleQA(question2, answer2, rotated2);
+            rotated2 = !rotated2;
+        });
+
+        question3.addEventListener('click', () => {
+            toggleQA(question3, answer3, rotated3);
+            rotated3 = !rotated3;
+        });
+
+        question4.addEventListener('click', () => {
+            toggleQA(question4, answer4, rotated4);
+            rotated4 = !rotated4;
+        });
+
+        question5.addEventListener('click', () => {
+            toggleQA(question5, answer5, rotated5);
+            rotated5 = !rotated5;
+        });
+
+        question6.addEventListener('click', () => {
+            toggleQA(question6, answer6, rotated6);
+            rotated6 = !rotated6;
+        });
+
+        question7.addEventListener('click', () => {
+            toggleQA(question7, answer7, rotated7);
+            rotated7 = !rotated7;
+        });
+
+        // 函数用于切换QA对的状态
+        function toggleQA(question, answer, rotated) {
+            if (rotated) {
+                question.querySelector('.rotate-image').style.transform = 'rotate(0deg)';
+                answer.style.display = 'none';
+            } else {
+                question.querySelector('.rotate-image').style.transform = 'rotate(90deg)';
+                answer.style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+
+</html>

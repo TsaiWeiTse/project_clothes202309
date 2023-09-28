@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表單管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        .content-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-table thead tr {
+            background-color: #020202;
+            color: #fff;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid #dddd;
+        }
+
+        .content-table tbody tr:nth-last-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .content-table tbody tr:last-of-type {
+            border-bottom: 2px solid #0c0c0c;
+        }
+
+        .content-table tbody tr.active-row {
+            font-weight: bold;
+            color: #020202;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 4px solid var(--c02);
+                margin: 10px;
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+                font-size: 24px;
+                font-weight: 600;
+                overflow: hidden;
+                /* 溢位 跑版 最後才寫 不可能預知 */
+            }
+
+            .table-rwd tbody td::before {
+                content: attr(data-th)" : ";
+                /* attr()可以塞一個變數 */
+                color: var(--c08);
+                display: block;
+                float: left;
+                width: 6em;
+                text-align: right;
+                padding-right: 1em;
+            }
+
+            /* em 為字數 可以更細微的去排版 */
+            .table-rwd tbody tr td span.table-col {
+                display: block;
+                float: left;
+                width: calc(100% - 6em);
+            }
+        }
+
+        .overlay,
+        .form-panel.one:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+        }
+
+        .form {
+            z-index: 15;
+            position: relative;
+            background: #ffffff;
+            width: 600px;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            margin: 100px auto 10px;
+            overflow: hidden;
+        }
+
+        .form-toggle {
+            z-index: 10;
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            background: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            transform-origin: center;
+            transform: translate(0, -25%) scale(0);
+            opacity: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-toggle:before,
+        .form-toggle:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 4px;
+            background: #4285f4;
+            transform: translate(-50%, -50%);
+        }
+
+        .form-toggle:before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .form-toggle:after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        .form-toggle.visible {
+            transform: translate(0, -25%) scale(1);
+            opacity: 1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 0 0 20px;
+        }
+
+        .form-group:last-child {
+            margin: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin: 0 0 10px;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .two .form-group label {
+            color: #ffffff;
+        }
+
+        .form-group input {
+            outline: none;
+            display: block;
+            background: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border: 0;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 12px 20px;
+            color: rgba(0, 0, 0, 0.6);
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: 500;
+            line-height: inherit;
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .two .form-group input {
+            color: #ffffff;
+        }
+
+        .two .form-group input:focus {
+            color: #ffffff;
+        }
+
+        .form-group button {
+            outline: none;
+            background: #4285f4;
+            width: 100%;
+            border: 0;
+            border-radius: 4px;
+            padding: 12px 20px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: 500;
+            line-height: inherit;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .two .form-group button {
+            background: #ffffff;
+            color: #4285f4;
+        }
+
+        .form-group .form-remember {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .form-group .form-remember input[type=checkbox] {
+            display: inline-block;
+            width: auto;
+            margin: 0 10px 0 0;
+        }
+
+        .form-group .form-recovery {
+            color: #4285f4;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .form-panel {
+            padding: 60px calc(5% + 60px) 60px 60px;
+            box-sizing: border-box;
+        }
+
+        .form-panel.one:before {
+            content: "";
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .form-panel.one.hidden:before {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .form-panel.two {
+            z-index: 5;
+            position: absolute;
+            top: 0;
+            left: 95%;
+            background: #4285f4;
+            width: 100%;
+            min-height: 100%;
+            padding: 60px calc(10% + 60px) 60px 60px;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-panel.two:before,
+        .form-panel.two:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 60px;
+            left: 1.5%;
+            background: rgba(255, 255, 255, 0.2);
+            height: 30px;
+            width: 2px;
+            transition: 0.3s ease;
+        }
+
+        .form-panel.two:after {
+            left: 3%;
+        }
+
+        .form-panel.two:hover {
+            left: 93%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-panel.two:hover:before,
+        .form-panel.two:hover:after {
+            opacity: 0;
+        }
+
+        .form-panel.two.active {
+            left: 10%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            cursor: default;
+        }
+
+        .form-panel.two.active:before,
+        .form-panel.two.active:after {
+            opacity: 0;
+        }
+
+        .form-header {
+            margin: 0 0 40px;
+        }
+
+        .form-header h1 {
+            padding: 4px 0;
+            color: #4285f4;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .two .form-header h1 {
+            position: relative;
+            z-index: 40;
+            color: #ffffff;
+        }
+
+        .pen-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 600px;
+            margin: 20px auto 100px;
+        }
+
+        .pen-footer a {
+            color: #ffffff;
+            font-size: 12px;
+            text-decoration: none;
+            text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .pen-footer a .material-icons {
+            width: 12px;
+            margin: 0 5px;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+
+        .cp-fab {
+            background: #ffffff !important;
+            color: #4285f4 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">後臺表單管理</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
+                        </li>
+                        </li>
+                        <li><a href="admin.html" class="btn btn-outline-warning mx-3">回上一頁</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="h3 fw-700 text-danger me-3" id="login_message"></span>
+                <a href="#" class="btn btn-success" id="logout_btn">登出</a>
+            </div>
+        </nav>
+
+        <div class="container mt-3">
+            <div class="row justify-content-center mt-3" style="margin-top: -20px;">
+                <div class="col-md-6">
+                    <select name="" id="" class="form-control text-center" v-model="active">
+                        <option value="">----全部----</option>
+                        <option :value="item" v-for="(item, key) in ynactive">讀取狀態: {{ item }}</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="container-fluid">
+                <table
+                    class="content-table table table-striped table-bordered table-hover table-sm border-dark table-rwd">
+                    <thead>
+                        <tr class="text-center">
+                            <th width="10%">編號</th>
+                            <th width="10%">名稱</th>
+                            <th width="10%">電話</th>
+                            <th width="20%">信箱</th>
+                            <th width="15%">內容</th>
+                            <th width="10%">已讀</th>
+                            <th width="25%">#</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="form" style="background-color: #ffffff;">
+                                <div class="form-toggle"></div>
+                                <div class="form-panel one">
+                                    <div class="form-header">
+                                        <h1 class="text-center mb-2">問題回饋--內容</h1>
+                                    </div>
+                                    <div class="form-content">
+                                        <form>
+                                            <div class="form-group text-center"> <!-- 使用 text-center 來置中 -->
+                                                <p>{{ selectedItemContent }}</p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="form-panel two">
+                                    <div class="form-header">
+
+                                    </div>
+                                    <div class="form-content">
+                                        <form>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <tbody v-for="(item, key) in filterData">
+                        <tr class="active-row text-center" v-if="item.f_Active === 'Y' || item.f_Active === 'N'">
+                            <td data-th="編號"><span class="table-col">{{item.ID}}</span></td>
+                            <td data-th="名稱"><span class="table-col">{{item.f_UserName}}</span></td>
+                            <td data-th="電話"><span class="table-col">{{item.f_Phone}}</span></td>
+                            <td data-th="信箱"><span class="table-col">{{item.f_Mail}}</span></td>
+                            <td data-th="內容"><span class="table-col">
+                                    <a href="#" class="btn btn-warning mx-3" data-bs-toggle="modal"
+                                        data-bs-target="#contentModal" id="updata_btn"
+                                        @click="selectedItemContent = item.f_Text; showContent(item)">顯示內容</a>
+                                </span></td>
+                            <td data-th="已讀"><span class="table-col">{{item.f_Active}}</span></td>
+                            <td>
+                                <a href="#" class="btn btn-danger" @click="deleteContent(item.ID)">刪除</a>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+
+        <script src="js/js_bootstrap.bundle.min.js"></script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+        <script src="js/publiclink.js"></script>
+        <script src="js/regist_login.js"></script>
+        <script src="js/uid01.js"></script>
+        <script src="js/userdata.js"></script>
+
+        <script>
+            const App = {
+                data() {
+                    return {
+                        fromdata: [],
+                        ynactive: [],
+                        active: '',
+                        selectedItemContent: '', // 抓f_Text內容用的 不然會只抓到第一筆
+                        updateactive: '',
+                        item: {},
+                    }
+                },
+                created() {
+                    var readstate, state_id;
+                    const vm = this;
+                    $.ajax({
+                        url: APILINKS + 'form_r_api.php',
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data.data);
+                            vm.fromdata = data.data;
+                            vm.geactive();
+                        }
+                    });
+
+                },
+                computed: {
+                    filterData() {
+                        const vm = this;
+                        let items = [];
+
+                        if (vm.active != '') {
+                            items = vm.fromdata.filter((item, key) => {
+                                return item.f_Active == vm.active
+                            })
+                        } else {
+                            items = vm.fromdata;
+                        }
+                        return items;
+                    },
+                },
+                methods: {
+                    geactive() {
+                        const vm = this;
+                        const ynactive = new Set();
+
+                        vm.fromdata.forEach((item, key) => {
+                            ynactive.add(item.f_Active);
+                        });
+
+                        vm.ynactive = Array.from(ynactive);
+                    },
+                    showContent(item) {
+                        // 在點擊 "顯示內容" 按鈕後，將 item 的 f_Active 值設為 'Y'
+                        item.f_Active = 'Y';
+
+                        $.ajax({
+                            url: APILINKS + 'form_u_api.php',
+                            method: 'POST',
+                            data: {
+                                id: item.ID, // 傳遞要更新的資料ID
+                                active: 'Y' // 狀態更新為Y 
+                            },
+                            success: function (response) {
+                                // 成功訊息
+                                console.log(response); // 
+                            },
+                            error: function () {
+
+                                console.error(error); // 記錄錯誤訊息
+                            }
+                        });
+                    },
+                    deleteContent(id) {
+                        const vm = this;
+                        $.ajax({
+                            url: APILINKS + 'form_d_api.php',
+                            method: 'POST',
+                            data: {
+                                id: id // 傳送要刪除的id
+                            },
+                            success: function (response) {
+                                // 成功刪除後 從vue中移除的項目
+                                const indexToDelete = vm.fromdata.findIndex(item => item.ID === id);
+                                if (indexToDelete !== -1) {
+                                    vm.fromdata.splice(indexToDelete, 1);
+                                }
+
+                                // 成功消息
+                                console.log(response);
+                                alert("刪除成功");
+                            },
+                            error: function (error) {
+                                console.error(error); // 錯誤訊息
+                            }
+                        });
+                    }
+                }
+            }
+            Vue.createApp(App).mount('#app');
+        </script>
+
+</body>
+
+</html>

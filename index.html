@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思購衣</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/toTop.css">
+
+    <style>
+        nav ul li.items.userMessage:after {
+            position: absolute;
+            content: '';
+            left: 0;
+            bottom: 5px;
+            height: 2px;
+            width: 100%;
+            /* background: #33ffff; */
+            background: none;
+            opacity: 0;
+            transition: all 0.2s linear;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .text-inside-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, .5);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper .form-box-level {
+            width: 100%;
+            padding: 40px;
+        }
+
+        .form-box-level h2 {
+            font-size: 5em;
+            color: #162938;
+            text-align: center;
+        }
+
+        .member-level-item {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid #162938;
+            margin: 30px 0;
+        }
+
+        .member-level-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .member-level-item p {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .member-level-item span.icon {
+            margin-right: 5px;
+        }
+
+        .member-level-item span.icon i {
+            font-size: 24px;
+            vertical-align: middle;
+        }
+
+        /* 新增样式，将按钮放在同一行并左右隔开 */
+        .member_update p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .member_update p a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fffffe;">
+    <!-- navbar -->
+    <section id="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <li class="logo"><a href="index.html"><img src="images/index/logoko.png" style="height: 80px;"
+                                    alt=""></a></li>
+                        <li class="items"><a href="index.html" style="color: #33ffff">Home</a></li>
+                        <li class="items"><a href="about.html">About</a></li>
+                        <li class="items"><a href="New.html">New</a></li>
+                        <li class="items"><a href="product.html">Product</a></li>
+                        <li class="items"><a href="contact.html">Contact</a></li>
+                        <li class="items"><a href="qalist.html">Q&A</a></li>
+
+                        <!-- "使用者"是共通，"消費者"跟"管理員"分別顯示 -->
+                        <!-- （初始）"使用者"按鈕 -->
+                        <li class="items" id="user_btn">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </a>
+                        </li>
+
+                        <!-- （登入後）"消費者"個人訊息按鈕 -->
+                        <li class="items d-none" id="message_btn">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                <i class="fa-solid fa-id-card fa-1" style="color: #ffffff;"></i>
+                            </a>
+                        </li>
+
+                        <!-- （登入後）"消費者"購物車按鈕 -->
+                        <li class="items d-none" id="car_btn">
+                            <a href="car.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+
+                        <!-- （登入後）"管理員"頁面按鈕 -->
+                        <li class="items d-none" id="admin_btn">
+                            <a href="admin.html" target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+                        </li>
+
+                        <!-- （登入後）"使用者"登出按鈕 -->
+                        <li class="items d-none" id="logout_btn">
+                            <a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></a>
+                        </li>
+
+                        <!-- （螢幕縮小）"使用者"選單按鈕 -->
+                        <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!--loginModal-->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control" placeholder="請輸入帳號!" id="login_username"
+                            name="login_username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" placeholder="請輸入密碼!" id="login_password"
+                            name="login_password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號, 請註冊</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        取消</button>
+                    <button type="button" class="btn btn-success" id="login_btn">
+                        確認登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--registerModal-->
+    <!--register-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row registerModal_Line">
+                        <div class="col-6 content">
+                            <h3>會員註冊規定</h3>
+                            <p>1. 提供真實資料，您必須提供真實、完整、最新的個人資料，包括姓名、聯絡方式、地址等信息。</p>
+                            <p>2. 請確保帳號及密碼的安全性，不要分享給他人。如果您發現帳號被盜用或不當使用，請立即通知我們。</p>
+                            <p>3. 請不要濫用購衣網的系統，包括大量生成虛假帳號、惡意操縱價格、洗錢等不當行為。</p>
+                            <p>4. 在使用購衣網時，請遵守您所在地區和國家的法律法規。不要從事非法活動，包括侵犯知識產權、詐騙或其他違法行為。</p>
+                            <hr>
+                            <p>我們承諾嚴格保護會員的個人資料和隱私。這些會員資訊將僅用於確認您的身份，確保您的訂單準確發送以及聯絡您，不會被用於其他商業用途。</p>
+                            <div class="form-check">
+                                <input type="checkbox" id="recheckbox" name="recheckbox"
+                                    class="form-check-input is-invalid">
+                                <label for="recheckbox" class="form-check-label text-primary">已閱讀並遵守</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">請勾選！</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">帳號</label>
+                                <input type="text" id="username" name="username" class="form-control"
+                                    placeholder="請輸入帳號 6~16字">
+                                <div class="valid-feedback" id="valid_message">帳號輸入格式正確</div>
+                                <div class="invalid-feedback" id="invalid_message">帳號輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userpwd" class="form-label">密碼</label>
+                                <input type="password" id="userpwd" name="userpwd" class="form-control"
+                                    placeholder="請輸入密碼 6~16字">
+                                <div class="valid-feedback">密碼輸入格式正確</div>
+                                <div class="invalid-feedback">密碼輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repassword" class="form-label">確認密碼</label>
+                                <input type="password" id="repassword" name="repassword" class="form-control"
+                                    placeholder="重新輸入密碼">
+                                <div class="valid-feedback">密碼輸入正確</div>
+                                <div class="invalid-feedback">密碼輸入錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userphone" class="form-label">電話</label>
+                                <input type="text" id="userphone" name="userphone" class="form-control"
+                                    placeholder="請輸入電話號碼 最多16碼">
+                                <div class="valid-feedback">電話輸入格式正確</div>
+                                <div class="invalid-feedback">電話輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="useraddr" class="form-label">地址</label>
+                                <input type="text" id="useraddr" name="useraddr" class="form-control"
+                                    placeholder="請輸入地址 最多64字">
+                                <div class="valid-feedback">地址輸入格式正確</div>
+                                <div class="invalid-feedback">地址輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="usermail" class="form-label">Email</label>
+                                <input type="text" id="usermail" name="usermail" class="form-control"
+                                    placeholder="請輸入Email 最多32字">
+                                <div class="valid-feedback">Email輸入格式正確</div>
+                                <div class="invalid-feedback">Email輸入格式錯誤</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已經有帳號，登入去！</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="reg_btn" name="reg_btn" class="btn btn-primary">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login_Toasts -->
+    <section id="login_toast_windows" class="d-none">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="login_Toasts" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-center">
+                    <img src="images/index/logoko.png" style="height: 80px;width: 200px;" class="bg-dark rounded me-2"
+                        alt="">
+                    <strong class="me-auto">Welcome back</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                        data-bs-delay='{"show":0,"hide":6000}'></button>
+                </div>
+                <div class="toast-body">
+                    <h4 class="text-danger" id="toast_msg"></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- mssage user modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content wrapper">
+                <div class="modal-body">
+                    <div class="form-box-level">
+                        <form action="#">
+                            <h2><i class="fa-solid fa-crown"></i></h2>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-crown">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員等級
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="memberLV"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-user text-dark">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員姓名
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="dataName"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item-mail d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-envelope text-light">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員信箱
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="me-auto" style="font-size: 16px; color: #fff;" id="dataMail"></p>
+                                </div>
+                            </div>
+
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" class="text-light" data-bs-toggle="modal"
+                                        data-bs-target="#u_messageModal" id="message_databtn">
+                                        變更使用者資訊
+                                    </a>
+                                    <a href="#" class="text-light u_recordModal" data-bs-toggle="modal"
+                                        data-bs-target="#u_recordModal">消費紀錄</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- mssage modal -->
+    <div class="modal fade" id="u_messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content wrapper-up">
+                <div class="modal-body">
+                    <div class="form-box-level-up">
+                        <h2 class="text-light">會員資料更新</h2>
+                        <form action="#">
+                            <div class="member-level-item">
+                                <span class="icon">
+                                    <i class="fa-solid fa-user text-light"></i>
+                                </span>
+                                <input type="text" class="form-control short-input me-1" id="u_username"
+                                    name="u_username" disabled>
+                                <label for="u_username" class="form-label text-light">帳號</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-lock text-light"></i></span>
+                                <input type="password" class="form-control short-input me-1" id="u_userpwd"
+                                    name="u_userpwd">
+                                <label for="u_userpwd" class="form-label text-light">密碼</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-phone text-light"></i></span>
+                                <input type="text" class="form-control short-input me-1" id="u_userphone"
+                                    name="u_userphone">
+                                <label for="u_userphone" class="form-label text-light">電話</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-envelope text-light"></i></span>
+                                <input type="email" class="form-control short-input ms-1" id="u_usermail"
+                                    name="u_usermail">
+                                <label for="u_usermail" class="form-label text-light">Email</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" style="color: white;" data-bs-toggle="modal"
+                                        data-bs-target="#messageModal">回上一頁</a>
+                                    <a href="#" style="color: white;" id="data_u_btn">確定更新</a>
+                                    <a href="#" style="color: white;" data-bs-dismiss="modal">取消</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  record modal-->
+    <div class="modal fade" id="u_recordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-bg-primary d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">------ 會員消費紀錄 ------</h1>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="text-bg-dark">
+                            <tr class="text-center">
+                                <th>日期</th>
+                                <th>產品名稱</th>
+                                <th>購買數量</th>
+                                <th>購買價格</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recode_table">
+                            <tr class="text-center">
+                                <td>2023-09-24</td>
+                                <td>產品1</td>
+                                <td>2</td>
+                                <td>$50.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><span id="totalPriceDisplay">共累積消費 : 0 元</span></p>
+                    <p>累積消費達20,000元，即可升級會高級會員，享全部商品8折優惠!!</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">回上一頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--s20 banner -->
+    <!-- banner圖片 -->
+    <section id="s20" class="bg-cover banner_image" style="background-image: url(images/index/index_theme01.jpg);">
+    </section>
+
+
+    <!--s30 -->
+    <section id="" class="categories mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 p-0">
+                    <div class="categories_item categories_large_item">
+                        <img src="images/index/index_pro01.jpg" alt="" class="img-fluid">
+                        <div class="categories_text">
+                            <h3>夏季熱門</h3>
+                            <h2>清涼素色連衣裙</h2>
+                            <p class="text-white">
+                                迎接夏天的準備好了嗎？我們自豪地介紹我們的夏日輕盈風格連身洋裝，為您的夏季穿搭增添了清新的風格和極大的舒適感。這款連身洋裝是夏日必備，適合各種場合，無論是海灘度假、野餐、購物或夜晚派對，都能為您帶來時尚與自信。
+                            </p>
+                            <a href="product.html">Buy now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-12 p-0">
+                            <div class="categories_item text-light">
+                                <img src="images/index/index_pro02.jpg" alt="" class="img-fluid">
+                                <div class="categories_text">
+                                    <h4>夏季推薦!</h4>
+                                    <p>涼爽夏季棉質T恤</p>
+                                    <a href="product.html">Buy now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-12 p-0">
+                            <div class="categories_item ">
+                                <img src="images/index/index_pro03.jpg" alt="" class="img-fluid">
+                                <div class="categories_text text-light">
+                                    <h4>夏季推薦!</h4>
+                                    <p>透氣運動短褲</p>
+                                    <a href="product.html">Buy now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-12 p-0">
+                            <div class="categories_item">
+                                <img src="images/index/index_pro04.jpg" alt="" class="img-fluid">
+                                <div class="categories_text text-light">
+                                    <h4>冬季推薦!</h4>
+                                    <p>保暖羊毛大衣</p>
+                                    <a href="product.html">Buy now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-12 p-0">
+                            <div class="categories_item">
+                                <img src="images/index/index_pro05.jpg" alt="" class="img-fluid">
+                                <div class="categories_text text-light">
+                                    <h4>冬季推薦!</h4>
+                                    <p>保暖羽絨外套</p>
+                                    <a href="product.html">Buy now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="s31" class="mt-5">
+        <div class="container-fluid" style="background-image: url(images/index/index_theme03.jpg);">
+            <div class="row align-items-center">
+                <div class="col-md-6 bg-cover">
+                    <img src="images/index/index_theme04.jpg" alt=""
+                        class="img-fluid animate__animated animate__rollIn animate__delay-2s ms-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center mb-5">
+                        <h1 class="animate__animated animate__backInRight animate__delay-1s me-3 me-5">歡迎來到思購衣</h1>
+                    </div>
+
+                    <div class="text-center">
+                        <p style="font-size: 20px;" class="animate__animated animate__flipInX animate__delay-2s me-3">
+                            我們為您帶來一個全新的購物體驗，無論是夏季的陽光和冬季的寒冷，我們都有您所需的時尚服裝。我們的店鋪專注於提供高質量、時尚和多樣化的衣物選擇，以滿足不同季節的需求。</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!--s40 商品列表-->
+    <section id="" class="">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 mt-4">
+                    <canvas id="myChart" style="height: 700px;width: 1000px;"></canvas>
+                </div>
+                <div class="col-md-6 bg-cover mt-3 mb-3">
+                    <img src="images/index/index_theme05.jpg" class="img-fluid" alt=""
+                        style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s50 banner 商品圖幻燈片+文字-->
+    <section id="">
+        <div class="container-fluid p-0">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item  banner_item">
+                        <img src="images/index/index_pro08.jpg" class="d-block w-100 banner_img" alt="...">
+                        <div class="carousel-caption top-0  mt-4 d-none d-md-block">
+                            <p class="mt-5 fs-3 text-uppercase">夏季熱門商品</p>
+                            <h1 class="display-1 fw-bolder text-capitalize">輕盈風格連身洋裝</h1>
+                            <a href="product.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Buy
+                                    now</button></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item active banner_item">
+                        <img src="images/index/index_pro09.jpg" class="d-block w-100 banner_img" alt="...">
+                        <div class="carousel-caption top-0  mt-4 d-none d-md-block">
+                            <p class="mt-5 fs-3 text-uppercase">夏季推薦商品</p>
+                            <h1 class="display-1 fw-bolder text-capitalize">運動休閒夏季短褲</h1>
+                            <a href="product.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Buy
+                                    now</button></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item  banner_item">
+                        <img src="images/index/index_pro10.jpg" class="d-block w-100 banner_img" alt="...">
+                        <div class="carousel-caption top-0  mt-4 d-none d-md-block">
+                            <p class="mt-5 fs-3 text-uppercase">冬季熱門商品</p>
+                            <h1 class="display-1 fw-bolder text-capitalize">暖心羊毛連帽大衣</h1>
+                            <a href="product.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Buy
+                                    now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- s60 shop_method-->
+    <section id="" class="shop_method_area spad" style="background-image: url(images/index/index_theme02.jpg);">
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="single_method mb-40">
+                        <i class="fa-solid fa-umbrella-beach text-primary"></i>
+                        <h6>夏季時尚：</h6>
+                        <p>當夏天的陽光灑在大地上時，我們的夏季服裝系列將成為您的最佳選擇。無論您正在計劃度假、海灘派對、露天音樂節，還是只是在城市中度過夏日，我們的夏季服裝將為您帶來時尚和舒適。我們提供各種涼爽的T恤、連身洋裝、短褲、泳裝和配飾，讓您在夏季保持時尚。
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="single_method mb-40">
+                        <i class="fa-solid fa-snowflake text-info"></i>
+                        <h6>冬季保暖：</h6>
+                        <p>當寒冷的冬天來臨時，我們的冬季服裝系列將為您提供溫暖和保護。我們的冬季服飾精心設計，採用高品質的羊毛、絨毛和保暖材料，確保您在寒冷的氣候中保持溫暖。無論您需要保暖的外套、毛衣、手套、圍巾或靴子，我們都有各種風格和選擇，以迎合您的需求。
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="single_method mb-40">
+                        <i class="fa-solid fa-shirt"></i>
+                        <h6>為什麼選擇思購衣？</h6>
+                        <p>1.多樣化的選擇：我們提供各種風格、尺寸和顔色的衣物，以適應不同的個人風格和需求。</p>
+                        <p>2.高品質材質：我們注重品質，使用優質的材質，確保我們的衣物耐穿、舒適且保暖。</p>
+                        <p>3.時尚設計：我們的設計師團隊不斷追蹤時尚趨勢，確保您在我們的服裝中總是充滿時尚感。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <section class="bg-black py-5">
+        <div class="container">
+            <div class="text-center">
+                <img src="images/contact/logoko.png" style="height: 180px;" alt="Logo">
+                <div class="row mt-4">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <!-- 在 md 和 sm 屏幕上垂直排列 -->
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://zh-tw.facebook.com/">
+                                        <img src="images/index/footer01.jpg" style="width: 100%;" alt="Facebook">
+                                        <div class="text-inside-image">Facebook</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://www.instagram.com/">
+                                        <img src="images/index/footer02.jpg" style="width: 100%;" alt="Instagram">
+                                        <div class="text-inside-image">Instagram</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://www.youtube.com/">
+                                        <img src="images/index/footer03.jpg" style="width: 100%;" alt="YouTube">
+                                        <div class="text-inside-image">YouTube</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h5 class="text-light text-center">Copyright © 2023 台中思購衣網 by Shopping Clothes</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back-top hide" title="回頂部"></div>
+    </section>
+
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="js/index_banner.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script src="js/userdata.js"></script>
+    <script src="js/toTop.js"></script>
+    <script src="js/cdn.jsdelivr.net_npm_chart.js"></script>
+
+
+    <script>
+        //navbar 下拉動畫
+        $(document).ready(function () {
+            $('.btn').click(function () {
+                $('.items').toggleClass("show");
+                $('ul li').toggleClass("hide");
+            });
+        });
+
+        anime.timeline({ loop: false })
+            .add({
+                targets: '.ml2 .letter',
+                scale: [4, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 750,
+                delay: (el, i) => 70 * i
+            })
+            .add({
+                targets: '.ml2',
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000,
+                complete: function () {
+                    // 在動畫結束後執行此回調函數
+                    // 您可以在這裡進行保留文字的操作，例如顯示文字
+                    var finalTextElement = document.querySelector('.ml2-final');
+                    if (finalTextElement) {
+                        $('.ml2-final').removeClass('d-none');
+                        finalTextElement.textContent = textWrapper.textContent;
+                    }
+                }
+            });
+
+        //長條圖的
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: APILINKS + "index_charjs-api.php",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    alert("error-" + APILINKS + "index_charjs-api.php");
+                }
+            });
+        });
+
+
+        const ctx = document.getElementById('myChart');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['台中市', '台北市', '台南市', '彰化市', '新北市', '基隆市', '花蓮市'],
+                datasets: [{
+                    label: '各項商品成交數量',
+                    data: [12, 19, 3, 5, 15, 7, 1],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '思購衣 購買商品數量表',  // 標題大小
+                        font: {
+                            size: 28, // 設定數值大小
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+        function showdata(data) {
+            console.log(data);
+            //確保資料清空X,Y軸的值
+            myChart.data.labels = [];
+            myChart.data.datasets[0].data = [];
+
+
+
+            data.data.forEach(function (item) {
+                myChart.data.labels.push(item.c_Name);
+                myChart.data.datasets[0].data.push(item.region_total);
+            });
+
+            myChart.update();
+        }
+
+        ///login_Toasts 監聽按鈕
+        const toastTrigger = document.getElementById('login_btn')
+        const toastLiveExample = document.getElementById('login_Toasts')
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', () => {
+                const toast = new bootstrap.Toast(toastLiveExample)
+
+                toast.show();
+            });
+        }
+    </script>
+</body>
+
+</html>

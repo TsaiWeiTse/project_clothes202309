@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思購衣Contact</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/toTop.css">
+
+</head>
+<style>
+    .text-inside-image {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 5px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .custom-icon-container {
+        margin-left: -10px;
+        /* 縮小間距 */
+        margin-right: -10px;
+    }
+</style>
+
+<body>
+    <!-- navbar -->
+    <section id="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <li class="logo"><a href="index.html"><img src="images/index/logoko.png" style="height: 80px;"
+                                    alt=""></a></li>
+                        <li class="items"><a href="index.html">Home</a></li>
+                        <li class="items"><a href="about.html">About</a></li>
+                        <li class="items"><a href="New.html">New</a></li>
+                        <li class="items"><a href="product.html">Product</a></li>
+                        <li class="items"><a href="contact.html" style="color: #33ffff">Contact</a></li>
+                        <li class="items"><a href="qalist.html">Q&A</a></li>
+
+                        <!-- "使用者"是共通，"消費者"跟"管理員"分別顯示 -->
+                        <!-- （初始）"使用者"按鈕 -->
+                        <!--<li class="items" id="user_btn">-->
+                        <!--    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">-->
+                        <!--        <i class="fa-solid fa-circle-user"></i>-->
+                        <!--    </a>-->
+                        <!--</li>-->
+
+                        <!-- （登入後）"消費者"個人訊息按鈕 -->
+                        <li class="items d-none" id="message_btn">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                <i class="fa-solid fa-id-card fa-1" style="color: #ffffff;"></i>
+                            </a>
+                        </li>
+
+                        <!-- （登入後）"消費者"購物車按鈕 -->
+                        <li class="items d-none" id="car_btn">
+                            <a href="car.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+
+                        <!-- （登入後）"管理員"頁面按鈕 -->
+                        <li class="items d-none" id="admin_btn">
+                            <a href="admin.html" target="_blank"><i class="fa-solid fa-user-shield"></i></a>
+                        </li>
+
+                        <!-- （登入後）"使用者"登出按鈕 -->
+                        <li class="items d-none" id="logout_btn">
+                            <a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></a>
+                        </li>
+
+                        <!-- （螢幕縮小）"使用者"選單按鈕 -->
+                        <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!--loginModal-->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control" placeholder="請輸入帳號!" id="login_username"
+                            name="login_username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" placeholder="請輸入密碼!" id="login_password"
+                            name="login_password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號, 請註冊</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        取消</button>
+                    <button type="button" class="btn btn-success" id="login_btn">
+                        確認登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--registerModal-->
+    <!--register-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row registerModal_Line">
+                        <div class="col-6 content">
+                            <h3>會員註冊規定</h3>
+                            <p>1. 提供真實資料，您必須提供真實、完整、最新的個人資料，包括姓名、聯絡方式、地址等信息。</p>
+                            <p>2. 請確保帳號及密碼的安全性，不要分享給他人。如果您發現帳號被盜用或不當使用，請立即通知我們。</p>
+                            <p>3. 請不要濫用購衣網的系統，包括大量生成虛假帳號、惡意操縱價格、洗錢等不當行為。</p>
+                            <p>4. 在使用購衣網時，請遵守您所在地區和國家的法律法規。不要從事非法活動，包括侵犯知識產權、詐騙或其他違法行為。</p>
+                            <hr>
+                            <p>我們承諾嚴格保護會員的個人資料和隱私。這些會員資訊將僅用於確認您的身份，確保您的訂單準確發送以及聯絡您，不會被用於其他商業用途。</p>
+                            <div class="form-check">
+                                <input type="checkbox" id="recheckbox" name="recheckbox"
+                                    class="form-check-input is-invalid">
+                                <label for="recheckbox" class="form-check-label text-primary">已閱讀並遵守</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">請勾選！</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">帳號</label>
+                                <input type="text" id="username" name="username" class="form-control"
+                                    placeholder="請輸入帳號 6~16字">
+                                <div class="valid-feedback" id="valid_message">帳號輸入格式正確</div>
+                                <div class="invalid-feedback" id="invalid_message">帳號輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userpwd" class="form-label">密碼</label>
+                                <input type="password" id="userpwd" name="userpwd" class="form-control"
+                                    placeholder="請輸入密碼 6~16字">
+                                <div class="valid-feedback">密碼輸入格式正確</div>
+                                <div class="invalid-feedback">密碼輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repassword" class="form-label">確認密碼</label>
+                                <input type="password" id="repassword" name="repassword" class="form-control"
+                                    placeholder="重新輸入密碼">
+                                <div class="valid-feedback">密碼輸入正確</div>
+                                <div class="invalid-feedback">密碼輸入錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userphone" class="form-label">電話</label>
+                                <input type="text" id="userphone" name="userphone" class="form-control"
+                                    placeholder="請輸入電話號碼 最多16碼">
+                                <div class="valid-feedback">電話輸入格式正確</div>
+                                <div class="invalid-feedback">電話輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="useraddr" class="form-label">地址</label>
+                                <input type="text" id="useraddr" name="useraddr" class="form-control"
+                                    placeholder="請輸入地址 最多64字">
+                                <div class="valid-feedback">地址輸入格式正確</div>
+                                <div class="invalid-feedback">地址輸入格式錯誤</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="usermail" class="form-label">Email</label>
+                                <input type="text" id="usermail" name="usermail" class="form-control"
+                                    placeholder="請輸入Email 最多32字">
+                                <div class="valid-feedback">Email輸入格式正確</div>
+                                <div class="invalid-feedback">Email輸入格式錯誤</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已經有帳號，登入去！</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="reg_btn" name="reg_btn" class="btn btn-primary">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <section id="toast_windows" class="d-none">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-center">
+                    <img src="images/index/logoko.png" style="height: 80px;width: 200px;" class="bg-dark rounded me-2"
+                        alt="">
+                    <strong class="me-auto">Welcome back</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                        data-bs-delay='{"show":0,"hide":6000}'></button>
+                </div>
+                <div class="toast-body">
+                    <h4 class="text-danger" id="toast_msg"></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- mssage user modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content wrapper">
+                <div class="modal-body">
+                    <div class="form-box-level">
+                        <form action="#">
+                            <h2><i class="fa-solid fa-crown"></i></h2>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-crown">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員等級
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="memberLV"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-user text-dark">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員姓名
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="text-light me-auto" style="font-size: 16px;" id="dataName"></p>
+                                </div>
+                            </div>
+
+                            <div class="member-level-item d-flex flex-column">
+                                <div class="row me-auto ms-1">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-envelope text-light">
+                                            <span class="text-light ms-2" style="font-size: 22px;">
+                                                會員信箱
+                                            </span>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="row ms-auto me-3">
+                                    <p class="me-auto" style="font-size: 16px; color: #fff;" id="dataMail"></p>
+                                </div>
+                            </div>
+
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" class="text-light" data-bs-toggle="modal"
+                                        data-bs-target="#u_messageModal" id="message_databtn">
+                                        變更使用者資訊
+                                    </a>
+                                    <a href="#" class="text-light u_recordModal" data-bs-toggle="modal"
+                                        data-bs-target="#u_recordModal">消費紀錄</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- mssage modal -->
+    <div class="modal fade" id="u_messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content wrapper-up">
+                <div class="modal-body">
+                    <div class="form-box-level-up">
+                        <h2 class="text-light">會員資料更新</h2>
+                        <form action="#">
+                            <div class="member-level-item">
+                                <span class="icon">
+                                    <i class="fa-solid fa-user text-light"></i>
+                                </span>
+                                <input type="text" class="form-control short-input me-1" id="u_username"
+                                    name="u_username" disabled>
+                                <label for="u_username" class="form-label text-light">帳號</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-lock text-light"></i></span>
+                                <input type="password" class="form-control short-input me-1" id="u_userpwd"
+                                    name="u_userpwd">
+                                <label for="u_userpwd" class="form-label text-light">密碼</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-phone text-light"></i></span>
+                                <input type="text" class="form-control short-input me-1" id="u_userphone"
+                                    name="u_userphone">
+                                <label for="u_userphone" class="form-label text-light">電話</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member-level-item">
+                                <span class="icon"><i class="fa-solid fa-envelope text-light"></i></span>
+                                <input type="email" class="form-control short-input ms-1" id="u_usermail"
+                                    name="u_usermail">
+                                <label for="u_usermail" class="form-label text-light">Email</label>
+                                <div>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="member_update">
+                                <p>
+                                    <a href="#" style="color: white;" data-bs-toggle="modal"
+                                        data-bs-target="#messageModal">回上一頁</a>
+                                    <a href="#" style="color: white;" id="data_u_btn">確定更新</a>
+                                    <a href="#" style="color: white;" data-bs-dismiss="modal">取消</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  record modal-->
+    <div class="modal fade" id="u_recordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-bg-primary d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">------ 會員消費紀錄 ------</h1>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="text-bg-dark">
+                            <tr class="text-center">
+                                <th>日期</th>
+                                <th>產品名稱</th>
+                                <th>購買數量</th>
+                                <th>購買價格</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recode_table">
+                            <tr class="text-center">
+                                <td>2023-09-24</td>
+                                <td>產品1</td>
+                                <td>2</td>
+                                <td>$50.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><span id="totalPriceDisplay">共累積消費 : 0 元</span></p>
+                    <p>累積消費達20,000元，即可升級會高級會員，享全部商品8折優惠!!</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">回上一頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- carousel幻燈片 -->
+    <section id="s20">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active bg-cover"
+                    style="height: 768px; background-image: url(images/about/about_show01.jpg);background-position: center center;">
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="height: 768px; background-image: url(images/about/about_show02.jpg);background-position: center center;">
+
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="height: 768px; background-image: url(images/about/about_show03.jpg);background-position: bottom center;">
+                </div>
+
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <!-- 開頭 -->
+
+    <!-- 表單 -->
+    <section id="s30" class="py-5" style="background-image: url(images/contact/con_theme10.jpg);">
+        <div class="container-fluid">
+            <div class="row mt-3 ms-2 ">
+                <div class="col-md-4 mt-3 ">
+                    <div class="modal-body">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <h1>問題回饋</h1>
+                                <label for="user_name" class="form-label">暱稱</label>
+                                <input type="text" class="form-control" id="user_name" name="user_name"
+                                    placeholder="請輸入暱稱">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">手機</label>
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                    placeholder="請輸入手機號碼以連繫">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">信箱</label>
+                                <input type="text" class="form-control" id="mail" name="mail" placeholder="請輸入信箱以連繫">
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="mb-3">
+                                <label for="qatext" class="form-label">問題回饋</label>
+                                <textarea class="form-control" id="qatext" name="qatext" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <form class="d-flex ms-auto">
+                            <a href="#" class="btn btn-primary" id="pass_btn">
+                                送出</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 mt-3 ">
+                    <div class="col-md-2 me-5">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29121.561033486323!2d120.62559625000002!3d24.16488855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d5fda791845%3A0xfd6609c779e1a346!2z5bm76Ka65Y2a54mp6aSoLeWPsOS4rQ!5e0!3m2!1szh-TW!2stw!4v1689668311439!5m2!1szh-TW!2stw"
+                            width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-5  ">
+                    <div class="mb-5 text-center">
+                        <p style="font-size: 24px; font-weight:bold;">Tel. 04-87638763</p>
+                    </div>
+                    <div class="mb-5 text-center">
+                        <p style="font-size: 24px; font-weight:bold;">Adr. 台中市西區精誠路66號</p>
+                    </div>
+                    <div class="mb-5 text-center">
+                        <p style="font-size: 24px; font-weight:bold;">Open time 09:00 - 22:00</p>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-between mt-5 custom-icon-container">
+                        <div class="mt-5 ms-1 me-5 ">
+                            <a href="#" class="mt-5"><i class="fa-brands fa-line"
+                                    style="color: #07be3e; font-size: 48px;"></i></a>
+                            <br>
+                        </div>
+                        <div class="mt-5 ms-0 me-5">
+                            <a href="#" class="mt-5"><i class="fa-brands fa-facebook"
+                                    style="color: #2a2de4; font-size: 48px;"></i></a>
+                            <br>
+                        </div>
+                        <div class="mt-5 ms-0 me-5">
+                            <a href="#" class="mt-5 "><i class="fa-brands fa-square-instagram"
+                                    style="color: #f346ea; font-size: 48px;"></i></a>
+                            <br>
+                        </div>
+                        <div class="mt-5 ms-0 me-5">
+                            <a href="#" class="mt-5"><i class="fa-brands fa-twitter"
+                                    style="color: #5da7f1; font-size: 48px;"></i></a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- footer -->
+    <section class="bg-black py-5">
+        <div class="container">
+            <div class="text-center">
+                <img src="images/contact/logoko.png" style="height: 180px;" alt="Logo">
+                <div class="row mt-4">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <!-- 在 md 和 sm 屏幕上垂直排列 -->
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://zh-tw.facebook.com/">
+                                        <img src="images/index/footer01.jpg" style="width: 100%;" alt="Facebook">
+                                        <div class="text-inside-image">Facebook</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://www.instagram.com/">
+                                        <img src="images/index/footer02.jpg" style="width: 100%;" alt="Instagram">
+                                        <div class="text-inside-image">Instagram</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="position-relative">
+                                    <a href="https://www.youtube.com/">
+                                        <img src="images/index/footer03.jpg" style="width: 100%;" alt="YouTube">
+                                        <div class="text-inside-image">YouTube</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h5 class="text-light text-center">Copyright © 2023 台中思購衣網 by Shopping Clothes</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back-top hide" title="回頂部"></div>
+    </section>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/js_bootstrap.bundle.min.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script src="js/userdata.js"></script>
+    <script src="js/toTop.js"></script>
+    <!-- <script src="js/regist_login.js"></script> -->
+    <script>
+        $(document).ready(function () {
+            $('.btn').click(function () {
+                $('.items').toggleClass("show");
+                $('ul li').toggleClass("hide");
+            });
+        });
+
+
+
+        $(function () {
+            $("#pass_btn").click(function () {
+                if (flag_user_name && flag_text && flag_phone && flag_mail) {
+                    console.log("test");
+                    $.ajax({
+                        type: "POST",
+                        url: APILINKS + "form_c_api.php",
+                        dataType: "json",
+                        data: {
+                            username: $("#user_name").val(),
+                            phone: $("#phone").val(),
+                            mail: $("#mail").val(),
+                            text: $("#qatext").val()
+                        },
+                        success: showdata_reg,
+                        error: function () {
+                            alert("表單輸入錯誤-http://localhost/api/form_c_api.php");
+                            console.log($("#user_name").val());
+                            console.log($("#phone").val());
+                            console.log($("#mail").val());
+                            console.log($("#qatext").val());
+                        }
+                    });
+                } else {
+                    alert("欄位輸入錯誤 請修正");
+                }
+            });
+        });
+        var flag_user_name = false;
+        var flag_mail = false;
+        var flag_phone = false;
+        var flag_text = false;
+
+
+        $("#user_name").bind("input propertychange", function () {
+            if ($(this).val().length > 2 && $(this).val().length < 9) {
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_user_name = true;
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_user_name = false;
+            }
+        });
+
+        $("#phone").bind("input propertychange", function () {
+            if ($(this).val().length > 7 && $(this).val().length < 11) {
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_phone = true;
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_phone = false;
+            }
+        });
+
+        $("#mail").bind("input propertychange", function () {
+            if ($(this).val().length > 0 && $(this).val().length < 20) {
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_mail = true;
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_mail = false;
+            }
+        });
+
+        $("#qatext").bind("input propertychange", function () {
+            if ($(this).val().length > 0) {
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_text = true;
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_text = false;
+            }
+        });
+
+
+
+        function showdata_reg(data) {
+            console.log(data);
+            if (data.state) {
+                alert(data.message);
+                location.href = "contact.html";
+            } else {
+                alert(data.message);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

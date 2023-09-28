@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員管理介面</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <style>
+        @media screen and (max-width: 768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 4px solid var(--c02);
+                margin: 10px;
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+                font-size: 24px;
+                font-weight: 600;
+                overflow: hidden;
+                /* 溢位 跑版 最後才寫 不可能預知 */
+            }
+
+            .table-rwd tbody td::before {
+                content: attr(data-th)" : ";
+                /* attr()可以塞一個變數 */
+                color: var(--c08);
+                display: block;
+                float: left;
+                width: 6em;
+                text-align: right;
+                padding-right: 1em;
+            }
+
+            /* em 為字數 可以更細微的去排版 */
+            .table-rwd tbody tr td span.table-col {
+                display: block;
+                float: left;
+                width: calc(100% - 6em);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">後臺管理</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">首頁</a>
+                    </li>
+                    <li><a href="admin.html" class="btn btn-outline-warning mx-3">回上一頁</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="h3 fw-700 text-danger me-3" id="login_message">XXX</span>
+            <a href="#" class="btn btn-success" id="logout_btn">登出</a>
+        </div>
+    </nav>
+    <div class="container">
+        <table class="table table-striped table-bordered table-hover table-sm border-secondary table-rwd">
+            <thead class="text-bg-dark">
+                <tr>
+                    <th>編號</th>
+                    <th>帳號</th>
+                    <th>電話</th>
+                    <th>地址</th>
+                    <th>Email</th>
+
+                    <th>帳號狀態</th>
+                    <th>註冊時間</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody id="mem_table">
+                <tr class="bg-light">
+                    <td data-th="編號"><span class="table-col">xxx</span></td>
+                    <td data-th="帳號"><span class="table-col">xxx</span></td>
+                    <td data-th="電話"><span class="table-col">xxx</span></td>
+                    <td data-th="地址"><span class="table-col">
+                            xxx</span></td>
+                    <td data-th="Email"><span class="table-col">
+                            xxx</span></td>
+                    <td data-th="帳號狀態"><span class="table-col">
+                            xxx</span></td>
+                    <td data-th="註冊時間"><span class="table-col">
+                            xxx</span></td>
+                    <td><a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#updateModal"
+                            id="updata_btn">更新</a>
+                        <!-- <a href="#" class="btn btn-danger" id="delete_btn">刪除</a> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- updateModal -->
+
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員更新</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">帳號</label>
+                        <input type="text" class="form-control" id="username" name="username" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userphone" class="form-label">電話</label>
+                        <input type="text" class="form-control" id="userphone" name="userphone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="useraddr" class="form-label">地址</label>
+                        <input type="text" class="form-control" id="useraddr" name="useraddr">
+                    </div>
+                    <div class="mb-3">
+                        <label for="usermail" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="usermail" name="usermail">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="modal_update_btn">確認更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/publiclink.js"></script>
+    <script src="js/regist_login.js"></script>
+    <script src="js/uid01.js"></script>
+    <script>
+
+
+        $(function () {
+            //確認uid是否存在，若存在傳至後端check_uid_api.php確認是否合法
+            if (getCookie("uid01") != "") {
+                //uid存在，傳至後端check_uid_api.php確認是否合法
+                $.ajax({
+                    type: "POST",
+                    url: APILINKS + "check_uid_api.php",
+                    dataType: "json",
+                    data: { uid01: getCookie("uid01") },
+                    async: false,
+                    success: showdata_check_uid,
+                    error: function () {
+                        alert("error-" + APILINKS + "check_uid_api.php");
+                    },
+                });
+            } else {
+
+                alert("請先登入會員 ! !");
+                location.href = "index.html";
+            }
+        });
+        // 監聽要放在這裡面
+        function showdata_check_uid(data) {
+
+            if (data.data[0].userAdmin == "1") {
+                $("#login_message").text("管理員：" + data.data[0].userName);
+                $.ajax({
+                    type: "Get",
+                    url: APILINKS + "admin_r_api.php",
+                    dataType: "json",
+                    async: false,
+                    success: showdata_table,
+                    error: function () {
+                        console.log("error-" + APILINKS + "admin_r_api.php")
+                    }
+                });
+                //delete_btn按鈕監聽 要放在主程式
+                $("#mem_table #delete_btn").click(function () {
+                    console.log($(this).data("id"));
+                    console.log($(this).data("username"));
+                    if (confirm("確認刪除: " + $(this).data("username") + "?")) {
+                        $.ajax({
+                            type: "POST",
+                            url: APILINKS + "admin_d_api.php",
+                            data: { id: $(this).data("id") },
+                            dataType: "json",
+                            success: showdata_delete,
+                            error: function () {
+                                alert("error-" + APILINKS + "admin_d_api.php");
+                            }
+                        });
+                    }
+                });
+                //upadata_btn按鈕監聽 要放在主程式
+                $("#mem_table #updata_btn").click(function () {
+                    console.log($(this).data("id"));
+                    console.log($(this).data("username"));
+                    console.log($(this).data("userphone"));
+                    console.log($(this).data("useraddr"));
+                    console.log($(this).data("usermail"));
+
+                    $("#username").val($(this).data("username"));
+                    $("#userphone").val($(this).data("userphone"));
+                    $("#useraddr").val($(this).data("useraddr"));
+                    $("#usermail").val($(this).data("usermail"));
+                    u_id = $(this).data('id');
+                });
+
+
+                //modal_update_btn按鈕監聽 要放在主程式
+                $("#modal_update_btn").click(function () {
+                    console.log($("#userphone").val());
+                    console.log($("#useraddr").val());
+                    console.log($("#usermail").val());
+                    console.log(u_id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: APILINKS + "admin_u_api.php",
+                        data: { id: u_id, userPhone: $("#userphone").val(), userAddr: $("#useraddr").val(), userMail: $("#usermail").val() },
+                        dataType: "json",
+                        success: showdata_update,
+                        error: function () {
+                            alert("error-" + APILINKS + "admin_u_api.php");
+                        }
+                    });
+                });
+                $("#logout_btn").click(function () {
+                    logout();
+                });
+                //監聽swtich 啟用//停權 要放在主程式
+                $("#mem_table #switch01").change(function () {
+                    var userstate, state_id;
+                    //變數都要有值才能傳遞至後端 
+                    if ($(this).is(':checked')) {
+                        console.log('啟用' + $(this).data('id'));
+                        // 可以改變狀態後面的詞
+                        userstate = 'Y';
+                        state_id = $(this).data('id');
+                        $(this).next().text('啟用');
+                        $(this).next().removeClass('text-danger');
+                        $(this).next().addClass('text-success');
+                    } else {
+                        userstate = 'N';
+                        state_id = $(this).data('id');
+                        console.log('停權' + $(this).data('id'));
+                        $(this).next().text('停權');
+                        $(this).next().removeClass('text-success');
+                        $(this).next().addClass('text-danger');
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: APILINKS + "admin_u_userState_api.php",
+                        data: { id: state_id, userstate: userstate },
+                        dataType: "json",
+                        success: showdata_u_userState,
+                        error: function () {
+                            alert("error-" + APILINKS + "admin_u_userState_api.php");
+                        }
+                    });
+
+                });
+            } else {
+                // uid 驗證失敗
+                alert("你不是管理員 ! !");
+                location.href = "index.html";
+            }
+        }
+
+
+
+
+        function showdata_table(data) {
+            console.log(data);
+            if (data.state) {
+                $("#mem_table").empty();
+                data.data.forEach(function (item) {
+                    console.log(item);
+
+                    if (item.userState == 'Y') {
+                        var switch01 = '<div class="text-success mb-3 form-check form-switch"><input type="checkbox" class="form-check-input" role="switch" checked id="switch01" data-id="' + item.ID + '"><label for="" class="form-check-label">啟用</label></div>';
+                    } else {
+                        var switch01 = '<div class="text-danger mb-3 form-check form-switch"><input type="checkbox" class="form-check-input" role="switch" id="switch01" data-id="' + item.ID + '"><label for="" class="form-check-label">停權</label></div>';
+                    }
+                    if (item.userAdmin == '2') {
+                        var strHTML = ' <tr class="bg-light"><td data-th="編號"><span class="table-col">' + item.ID + '</span></td><td data-th="帳號"><span class="table-col">' + item.userName + '</span></td><td data-th="電話"><span class="table-col">' + item.userPhone + '</span></td><td data-th="地址"><span class="table-col">' + item.userAddr + '</span></td><td data-th="Email"><span class="table-col">' + item.userMail + '</span></td><td data-th="帳號狀態"><span class="table-col">' + switch01 + '</span></td><td data-th="註冊時間"><span class="table-col">' + item.userDate + '</span></td><td><a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#updateModal" data-id="' + item.ID + '" data-username="' + item.userName + '" data-userpwd="' + item.userPwd + '" data-userphone="' + item.userPhone + '" data-useraddr="' + item.userAddr + '" data-usermail="' + item.userMail + '" id="updata_btn">更新</a></td></tr>';
+
+                        $("#mem_table").append(strHTML);
+                    }
+                });
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showdata_update(data) {
+            console.log(data);
+            if (data.state) {
+                alert(data.message);
+                location.href = "conrtol_mem_panel.html";
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showdata_delete(data) {
+            console.log(data);
+            if (data.state) {
+                alert(data.message);
+                location.href = "conrtol_mem_panel.html";
+            } else {
+                alert(data.message);
+            }
+        }
+
+
+
+
+        function logout() {
+            setCookie('uid01', '', 7);
+            location.href = "index.html";
+
+        }
+
+        function showdata_u_userState(data) {
+            console.log(data);
+            if (data.state) {
+                // 帳號更新成功
+                alert(data.message);
+            } else {
+                // 帳號更新失敗
+                alert(data.message);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

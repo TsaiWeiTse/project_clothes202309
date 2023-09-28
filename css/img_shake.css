@@ -1,0 +1,45 @@
+
+body{
+  margin: 0;
+  padding: 0;
+}
+.banner_img{
+  height: 100vh;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+
+
+/*card中的圖片hover時縮放 用於winter summer 頁面*/
+.card{
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .card img{
+    width: 100%;
+    height: auto;
+    transition:transform 0.3s ease;
+  }
+
+  .card img:hover{
+    transform: scale(1.02);
+  }
+
+  .about_timeline_pic{
+    width: 50%;
+    overflow: hidden;
+  }  
+
+  .about_timeline_pic img{
+    width: 100%;
+    height: auto;
+    transition:transform 0.3s ease;
+  }
+
+  .about_timeline_pic img:hover{
+    transform: scale(1.02);
+  }

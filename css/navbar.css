@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
+/* 全部樣式設置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav {
+    background: #151515;
+    padding: 5px 30px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+nav ul li {
+    padding: 15px 0;
+    cursor: pointer;
+}
+
+nav ul li.items {
+    position: relative;
+    width: auto;
+    margin: 0 16px;
+    text-align: center;
+    order: 3;
+}
+
+nav ul li.items:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 5px;
+    height: 2px;
+    width: 100%;
+    background: #33ffff;
+    opacity: 0;
+    transition: all 0.2s linear;
+}
+
+nav ul li.items:hover:after {
+    opacity: 1;
+    bottom: 8px;
+}
+
+nav ul li.logo {
+    flex: 1;
+    color: white;
+    font-size: 23px;
+    font-weight: 600;
+    cursor: default;
+    user-select: none;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    transition: .4s;
+}
+
+nav ul li:hover a {
+    color: cyan;
+}
+
+nav ul li i {
+    font-size: 23px;
+}
+
+nav ul li.btn {
+    display: none;
+}
+
+nav ul li.btn.hide i:before {
+    content: '\f00d';
+}
+
+/*會員明細的css*/
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .form-box-level {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box-level h2 {
+    font-size: 5em;
+    color: #162938;
+    text-align: center;
+}
+
+.member-level-item {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.member-level-item-mail {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.member-level-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-level-item p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.member-level-item span.icon {
+    margin-right: 5px;
+}
+
+.member-level-item span.icon i {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+/* 新增样式，将按钮放在同一行并左右隔开 */
+.member_update p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member_update p a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+/*會員資訊更新*/
+.wrapper-up {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .form-box-level-up {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box-level-up h2 {
+    font-size: 3em;
+    color: #162938;
+    text-align: center;
+}
+
+.member-level-item {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.member-level-item label {
+    display: inline-block;
+    width: auto;
+    margin-left: 10px;
+}
+
+.member-level-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-level-item p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.member-level-item span.icon {
+    margin-right: 5px;
+}
+
+.member-level-item span.icon i {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+/* 新增样式，将按钮放在同一行并左右隔开 */
+.member_update p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member_update p a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.short-input {
+    width: 290px;
+    /* 设置输入字段的宽度 */
+    /* 可以根据需要添加其他样式属性 */
+}
+
+@media all and (max-width: 900px) {
+    nav {
+        padding: 5px 30px;
+    }
+
+    nav ul li.items {
+        width: 100%;
+        display: none;
+    }
+
+    nav ul li.items.show {
+        display: block;
+    }
+
+    nav ul li.btn {
+        display: block;
+    }
+
+    nav ul li.items:hover {
+        border-radius: 5px;
+        box-shadow: inset 0 0 5px #33ffff,
+            inset 0 0 10px #66ffff;
+    }
+
+    nav ul li.items:hover:after {
+        opacity: 0;
+    }
+}
